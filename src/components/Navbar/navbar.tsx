@@ -1,19 +1,27 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import SearchModal from "../modal/searchModal";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logOut } from "../../redux/features/auth/authSlice";
 
 const Navbar = () => {
-  const [openSearchModal, setOpenSearchModal] = useState(false);
+  const [openSearchModal, setOpenSearchModal] = useState(null);
+  const { loginUser, isLogin } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <div className="navbar bg-base-100 drop-shadow-lg sticky top-0 z-10">
         <div className="flex-1 sm:space-x-6 space-x-4">
-          <p className=" normal-case text-sm sm:text-xl">NextGen</p>
+          <Link to="/" className=" normal-case text-sm sm:text-xl">
+            NextGen
+          </Link>
           <label
             htmlFor="search-modal"
             className=" hover:cursor-pointer"
-            onClick={() => setOpenSearchModal(true)}
+            onClick={() => setOpenSearchModal(loginUser)}
           >
             <div className="flex items-center space-x-2 bg-base-200 p-2 shadow-sm rounded-lg">
               <span>
@@ -24,13 +32,13 @@ const Navbar = () => {
           </label>
         </div>
         <div className="flex-none gap-2">
-          <div className="flex hidden sm:block ">
+          {/* <div className="flex hidden sm:block ">
             <div className="form-control w-auto sm:w-52">
               <label className="cursor-pointer label">
                 <input type="checkbox" className="toggle toggle-primary" />
               </label>
             </div>
-          </div>
+          </div> */}
 
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -42,7 +50,7 @@ const Navbar = () => {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
-              <li>
+              {/* <li>
                 <div className="flex block sm:hidden ">
                   <div className="form-control w-auto sm:w-52">
                     <label className="cursor-pointer label">
@@ -53,15 +61,23 @@ const Navbar = () => {
                     </label>
                   </div>
                 </div>
-              </li>
+              </li> */}
               <li>
-                <a className="justify-between">
+                <Link
+                  to={`/profile/${loginUser?.userId}`}
+                  className="justify-between"
+                >
                   Profile
-                  <span className="badge">New</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>Logout</a>
+                {isLogin ? (
+                  <Link to="/login" onClick={() => dispatch(logOut())}>
+                    Logout
+                  </Link>
+                ) : (
+                  <Link to="/login">login</Link>
+                )}
               </li>
             </ul>
           </div>

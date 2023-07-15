@@ -71,7 +71,7 @@ const SearchModal = ({ openSearchModal, setOpenSearchModal }) => {
                   return (
                     <Link
                       to={`/profile/${suggest?._id}`}
-                      onClick={() => setOpenSearchModal(false)}
+                      onClick={() => setOpenSearchModal(null)}
                     >
                       <div className="sm:flex border sm:border-none sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg">
                         <label

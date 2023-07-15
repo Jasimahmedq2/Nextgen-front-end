@@ -18,6 +18,8 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import EditProfile from "../../components/modal/editePorfile";
 import { useAppSelector } from "../../redux/hooks";
+import Friends from "../../components/Home/friends";
+import SuggestedFriends from "../../components/Home/suggestedFriends";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -86,13 +88,15 @@ const Profile = () => {
                 </>
               )}
 
-              <label
-                htmlFor="edit-profile-modal"
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-sm hover: cursor-pointer"
-                onClick={() => setEditeProfileModal(profileUser?.data)}
-              >
-                <span>Edit</span>
-              </label>
+              {userId === loginUser?.userId && (
+                <label
+                  htmlFor="edit-profile-modal"
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-sm hover: cursor-pointer"
+                  onClick={() => setEditeProfileModal(profileUser?.data)}
+                >
+                  <span>Edit</span>
+                </label>
+              )}
             </div>
           </div>
         </div>
@@ -116,7 +120,12 @@ const Profile = () => {
         {/* Profile Gallery */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
       </div>
-      <div className="w-11/12 sm:w-1/2 mx-auto">
+      <div className="w-11/12 sm:w-1/2 mx-auto space-y-4">
+        <div className="sm:hidden space-y-4">
+          <SuggestedFriends />
+          <Friends />
+        </div>
+
         {data?.data?.map((post) => (
           <FeedCard key={post._id} post={post} />
         ))}

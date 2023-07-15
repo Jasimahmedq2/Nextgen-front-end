@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { useLoginUserMutation } from "../../redux/features/auth/authApiSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { isLoggedIn } from "../../redux/features/auth/authSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 
@@ -114,9 +114,9 @@ const Login = () => {
                 )}
 
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <Link to='/register' href="#" className="label-text-alt link link-hover">
                     register?
-                  </a>
+                  </Link>
                 </label>
               </div>
               <div className="form-control mt-6">

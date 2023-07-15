@@ -9,7 +9,7 @@ import login from "../../assets/images/login.svg.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useRegisterUserMutation } from "../../redux/features/auth/authApiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
@@ -78,7 +78,7 @@ const Register = () => {
       <h1 className="text-5xl font-bold sm:mt-12 sm:flex sm:justify-center sm:items-center">
         Register now!
       </h1>
-      
+
       <div className="sm:flex sm:min-h-screen sm:justify-around sm:items-center ">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,9 +143,13 @@ const Register = () => {
                 )}
 
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    register?
-                  </a>
+                  <Link
+                    to="/login"
+                    href="#"
+                    className="label-text-alt link link-hover"
+                  >
+                    already have a account?
+                  </Link>
                 </label>
               </div>
 

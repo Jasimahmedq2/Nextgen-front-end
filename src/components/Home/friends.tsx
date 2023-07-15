@@ -15,7 +15,7 @@ const Friends = () => {
     console.log({ successData: data });
   }
   return (
-    <div className="bg-white rounded-lg shadow-md p-2 font-bold space-y-4">
+    <div className="bg-white rounded-lg shadow-md p-2 font-bold space-y-4 ">
       <h2 className="text-xl sm:text-2xl ">Friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&
