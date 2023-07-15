@@ -1,7 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import login from "../../assets/images/login.svg.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
+import { useRegisterUserMutation } from "../../redux/features/auth/authApiSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface IFormInputs {
   firstName: string;
@@ -18,19 +29,57 @@ const Register = () => {
     handleSubmit,
   } = useForm<IFormInputs>();
 
+  const [registerUser, { data, isLoading, isSuccess, error, isError }] =
+    useRegisterUserMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     console.log("data here:", data);
+
     if (data) {
-      reset();
+      const registerOptions = {
+        name: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
+        email: data.email,
+        password: data.password,
+      };
+      registerUser(registerOptions);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully");
+      navigate("/login");
+    }
+
+    if (isError) {
+      console.log(error);
+      if (Array.isArray((error as any).data.error)) {
+        (error as any).data.error.forEach((el: any) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error((error as any).data.message, {
+          position: "top-right",
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   return (
     <div className=" bg-[#eceef4] space-y-6 sm:space-y-0 p-2">
       <h1 className="text-5xl font-bold sm:mt-12 sm:flex sm:justify-center sm:items-center">
         Register now!
       </h1>
-      <div className="sm:flex sm:h-screen sm:justify-around sm:items-center ">
+      
+      <div className="sm:flex sm:min-h-screen sm:justify-around sm:items-center ">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="card-body">
@@ -78,6 +127,7 @@ const Register = () => {
                   <p className="text-sm text-red-400">email is required</p>
                 )}
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -94,13 +144,11 @@ const Register = () => {
 
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                  <a href="#" className="label-text-alt link link-hover">
                     register?
                   </a>
                 </label>
               </div>
+
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary">
                   Login

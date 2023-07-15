@@ -1,7 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import login from "../../assets/images/login.svg.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
+import { useLoginUserMutation } from "../../redux/features/auth/authApiSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { isLoggedIn } from "../../redux/features/auth/authSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 interface IFormInputs {
   email: string;
@@ -12,11 +24,56 @@ const Login = () => {
   const {
     register,
     formState: { errors },
+    reset,
     handleSubmit,
   } = useForm<IFormInputs>();
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [loginUser, { data, isLoading, isError, error, isSuccess }] =
+    useLoginUserMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("You successfully logged in");
+      console.log(data.data);
+      navigate("/");
+    }
+    if (isError) {
+      if (Array.isArray((error as any).data?.error)) {
+        (error as any).data?.error.forEach((el: any) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error((error as any).data?.message, {
+          position: "top-right",
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      reset();
+      dispatch(isLoggedIn(data?.data));
+      const accessToken = data?.data?.accessToken;
+      localStorage.setItem("token", accessToken);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log("data here:", data);
+    const options = {
+      email: data.email,
+      password: data.password,
+    };
+    console.log({ options });
+    loginUser(options);
   };
 
   return (
@@ -57,9 +114,6 @@ const Login = () => {
                 )}
 
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
                   <a href="#" className="label-text-alt link link-hover">
                     register?
                   </a>

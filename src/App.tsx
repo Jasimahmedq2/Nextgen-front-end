@@ -1,18 +1,12 @@
-import Navbar from "./components/Navbar/navbar";
-import Index from "./pages/Home";
-import Feed from "./pages/Home/feed";
-import Login from "./pages/Login/login";
-import Register from "./pages/Login/singup";
-import Profile from "./pages/profile/profile";
+import MainLayout from "./layout/MainLayout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div className="main-style">
-      <Navbar />
-      {/* <Profile /> */}
-      {/* <Login /> */}
-      <Register />
-      {/* <Index /> */}
+      <MainLayout />
+      <ToastContainer />
     </div>
   );
 }

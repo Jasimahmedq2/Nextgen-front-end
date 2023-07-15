@@ -1,7 +1,31 @@
 export interface IPost {
-    _id: string;
-    name: string;
-    description?: string;
-    image?: string;
-    createdAt: string;
-  }
+  _id: string;
+  user: {
+    _id?: string;
+    name?: {
+      firstName?: string;
+      lastName?: string;
+    };
+    role?: string;
+    email?: string;
+    profilePic?: string;
+  };
+  comments: {
+    _id?: string;
+    name?: {
+      firstName?: string;
+      lastName?: string;
+    };
+    text?: string;
+    profilePic?: string;
+  };
+  caption?: string;
+  likes: string[];
+  name: string;
+  following: string[];
+  followers: string[];
+  image?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
