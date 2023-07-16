@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -15,11 +16,7 @@ import {
   useGetOnePostQuery,
   useLikePostMutation,
 } from "../../redux/features/post/postApiSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  likeDislikePost,
-  commentPost,
-} from "../../redux/features/post/postSlice";
+
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   AiFillEdit,
@@ -27,7 +24,6 @@ import {
   AiTwotoneDelete,
   AiOutlineHeart,
 } from "react-icons/ai";
-import { IPost } from "../../interfaces/post/postInterfaces";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 
@@ -35,7 +31,7 @@ interface ICommentInterface {
   text: string;
 }
 
-const CommentModal = ({ openCommentModal }) => {
+const CommentModal = ({ openCommentModal, setOpenCommentMOdal }) => {
   const [commentPost] = useCommentPostMutation();
   const [likePost] = useLikePostMutation();
 
@@ -48,18 +44,20 @@ const CommentModal = ({ openCommentModal }) => {
     handleSubmit,
   } = useForm<ICommentInterface>();
 
-  const { data, isLoading } = useGetOnePostQuery(openCommentModal?._id);
+  const { data: CData, isLoading } = useGetOnePostQuery(openCommentModal);
 
-  if (isLoading) {
-    return <p>loading...</p>;
-  }
+  useEffect(() => {
+    if (!isLoading && CData) {
+      setOpenCommentMOdal(CData.data?._id);
+    }
+  }, [CData, isLoading, setOpenCommentMOdal]);
 
-  const { _id, caption, createdAt, user, likes } = data?.data;
-  const { firstName, lastName } = user?.name;
+  // const { _id, caption, createdAt, user, likes } = data?.data;
+  // const { firstName, lastName } = user?.name;
 
   const onSubmit: SubmitHandler<ICommentInterface> = (data) => {
     const info = {
-      postId: _id,
+      postId: CData?.data?._id,
       text: data?.text,
     };
     commentPost(info);
@@ -76,6 +74,7 @@ const CommentModal = ({ openCommentModal }) => {
       <div className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
           <label
+            onClick={() => setOpenCommentMOdal(null)}
             htmlFor="comment-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
@@ -93,7 +92,7 @@ const CommentModal = ({ openCommentModal }) => {
                       <div className="w-10 rounded-full">
                         <img
                           src={
-                            user.profilePic ||
+                            CData?.data?.user?.profilePic ||
                             "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                           }
                           alt="user img"
@@ -103,9 +102,11 @@ const CommentModal = ({ openCommentModal }) => {
 
                     <div>
                       <h3 className="text-sm font-bold">
-                        {firstName + " " + lastName}
+                        {CData?.data?.name?.firstName +
+                          " " +
+                          CData?.data?.name?.lastName}
                       </h3>
-                      <p className="font">{format(createdAt)}</p>
+                      <p className="font">{format(CData?.data?.createdAt)}</p>
                     </div>
 
                     <div className="absolute right-2 top-4">
@@ -143,12 +144,12 @@ const CommentModal = ({ openCommentModal }) => {
                   </div>
 
                   <div className="py-4 px-2">
-                    <p>{caption}</p>
+                    <p>{CData?.data?.caption}</p>
                   </div>
                   <div className="p-2 rounded-lg">
                     <img
                       style={{ maxHeight: "25rem", width: "100%" }}
-                      src={data?.data?.image}
+                      src={CData?.data?.image}
                       alt=""
                     />
                   </div>
@@ -157,9 +158,9 @@ const CommentModal = ({ openCommentModal }) => {
                     <div className="flex justify-between">
                       <h2
                         className={`flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer`}
-                        onClick={() => handleLike(_id)}
+                        onClick={() => handleLike(CData?.data?._id)}
                       >
-                        {likes.includes(loginUser?.userId) ? (
+                        {CData?.data?.likes.includes(loginUser?.userId) ? (
                           <AiFillHeart
                             className={`sm:text-4xl text-2xl hover:cursor-pointer text-red-300`}
                           />
@@ -170,7 +171,7 @@ const CommentModal = ({ openCommentModal }) => {
                         )}
 
                         <span className="text-xl font-serif">
-                          {likes.length}
+                          {CData?.data?.likes.length}
                         </span>
                       </h2>
                     </div>
@@ -185,7 +186,7 @@ const CommentModal = ({ openCommentModal }) => {
           */}
 
           <div className="max-h-96 space-y-4 py-4 overflow-y-auto">
-            {data?.data?.comments?.map((comment) => (
+            {CData?.data?.comments?.map((comment: any) => (
               <div className="flex items-start mb-4">
                 <img
                   src={

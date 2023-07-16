@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useUpdateUserMutation } from "../../redux/features/auth/userApi";
 import { useEditPostMutation } from "../../redux/features/post/postApiSlice";
 
 interface IProfileEdit {

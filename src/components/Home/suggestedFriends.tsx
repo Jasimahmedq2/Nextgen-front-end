@@ -7,7 +7,7 @@ import { useSuggestedFriendsQuery } from "../../redux/features/auth/userApi";
 
 const SuggestedFriends = () => {
   const { data, isLoading, isSuccess } = useSuggestedFriendsQuery(undefined);
-  console.log({ friendss: data?.followers });
+
   if (isLoading) {
     return <p>isLoading</p>;
   }
@@ -19,7 +19,7 @@ const SuggestedFriends = () => {
       <h2 className="text-xl sm:text-2xl ">Suggested friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&
-          data?.data?.map((suggest) => {
+          data?.data?.map((suggest: any) => {
             return (
               <Link to={`/profile/${suggest?._id}`}>
                 <div className="sm:flex border sm:border-none sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg">

@@ -35,7 +35,6 @@ const CreatePost = () => {
   const [createPost, { isLoading, isSuccess }] = useCreatePostMutation();
 
   const onSubmit: SubmitHandler<ICreatePost> = (data) => {
-    const file = data.image[0];
     const privateUrl = "44c26384eae4023f6064cf342eee9294";
     const formData = new FormData();
     formData.append("image", data?.image[0]);

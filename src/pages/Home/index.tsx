@@ -1,7 +1,6 @@
 import Feed from "./feed";
 import Friends from "../../components/Home/friends";
 import SuggestedFriends from "../../components/Home/suggestedFriends";
-import { useGetMeQuery } from "../../redux/features/auth/userApi";
 
 const Index = () => {
   return (

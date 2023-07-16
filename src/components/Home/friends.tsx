@@ -19,7 +19,7 @@ const Friends = () => {
       <h2 className="text-xl sm:text-2xl ">Friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&
-          data?.data?.followers?.map((suggest) => {
+          data?.data?.followers?.map((suggest: any) => {
             return (
               <Link to={`/profile/${suggest?._id}`}>
                 <div className="sm:flex border sm:border-none sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg">

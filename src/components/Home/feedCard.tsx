@@ -15,17 +15,11 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineComment } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 import { IPost } from "../../interfaces/post/postInterfaces";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { format } from "timeago.js";
-import {
-  useGetOnePostQuery,
-  useLikePostMutation,
-} from "../../redux/features/post/postApiSlice";
+import { useLikePostMutation } from "../../redux/features/post/postApiSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  commentPost,
-  likeDislikePost,
-} from "../../redux/features/post/postSlice";
+import { likeDislikePost } from "../../redux/features/post/postSlice";
 import CommentModal from "../comment/comment";
 import EditPost from "../modal/editPost";
 import DeletePost from "../modal/deletePost";
@@ -41,31 +35,16 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
   const [deletePostModal, setDeletePostModal] = useState(null);
 
   const { image, caption, _id, createdAt, user, likes } = post;
-  const { firstName, lastName } = user?.name;
+  // const { firstName, lastName } = user?.name;
 
   const { loginUser } = useAppSelector((state) => state.user);
 
   const [likePost] = useLikePostMutation();
-  const dispatch = useAppDispatch();
 
   const handleLike = (id: string) => {
     if (post) {
-      const likedByUser = post.likes.includes(user?._id);
-      console.log(id);
-
-      likePost(id)
-        .unwrap()
-        .then((updatedPost) => {
-          dispatch(likeDislikePost());
-        })
-        .catch((error) => {
-          console.error("Error liking/disliking post:", error);
-        });
+      likePost(id);
     }
-  };
-
-  const handleComment = (post) => {
-    setOpenCommentMOdal(post);
   };
 
   return (
@@ -90,7 +69,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
 
               <div>
                 <h3 className="text-sm font-bold">
-                  {firstName + " " + lastName}
+                  {user?.name?.firstName + " " + user?.name?.lastName}
                 </h3>
                 <p className="font">{format(createdAt)}</p>
               </div>
@@ -145,7 +124,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                   className={`flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer`}
                   onClick={() => handleLike(_id)}
                 >
-                  {likes.includes(loginUser.userId) ? (
+                  {likes.includes(loginUser?.userId) ? (
                     <AiFillHeart
                       className={`sm:text-4xl text-2xl hover:cursor-pointer text-red-300`}
                     />
@@ -160,7 +139,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                 <label
                   htmlFor="comment-modal"
                   className="flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer"
-                  onClick={() => handleComment(post)}
+                  onClick={() => setOpenCommentMOdal(post?._id)}
                 >
                   <AiOutlineComment className="sm:text-4xl text-2xl hover:cursor-pointer" />
                   <span className="text-sm sm:text-xl font-serif">comment</span>
@@ -170,7 +149,12 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
           </div>
         </div>
       </div>
-      {openCommentModal && <CommentModal openCommentModal={openCommentModal} />}
+      {openCommentModal && (
+        <CommentModal
+          openCommentModal={openCommentModal}
+          setOpenCommentMOdal={setOpenCommentMOdal}
+        />
+      )}
       {editPostModal && (
         <EditPost
           editPostModal={editPostModal}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -23,7 +24,6 @@ const EditProfile = ({ editProfileModal, setEditeProfileModal }) => {
   const [updateUser] = useUpdateUserMutation();
 
   const onSubmit: SubmitHandler<IPostEdit> = (data) => {
-    const file = data.profilePic[0];
     const privateUrl = "44c26384eae4023f6064cf342eee9294";
     const formData = new FormData();
     formData.append("image", data?.profilePic[0]);

@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { IUser } from "../../../interfaces/user/userInteface";
 import { api } from "../../api/apiSclice";
-import { setUser } from "./authSlice";
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({

@@ -8,13 +8,11 @@
 import { useParams } from "react-router-dom";
 import FeedCard from "../../components/Home/feedCard";
 import { useUserPostQuery } from "../../redux/features/post/postApiSlice";
-import Feed from "../Home/feed";
 import {
   useFollowingUserMutation,
   useProfileUserQuery,
   useUnFollowingUserMutation,
 } from "../../redux/features/auth/userApi";
-import { toast } from "react-toastify";
 import { useState } from "react";
 import EditProfile from "../../components/modal/editePorfile";
 import { useAppSelector } from "../../redux/hooks";
@@ -27,7 +25,7 @@ const Profile = () => {
   const { data, isLoading } = useUserPostQuery(userId);
   const { data: profileUser } = useProfileUserQuery(userId);
 
-  const [followingUser, { isSuccess }] = useFollowingUserMutation();
+  const [followingUser] = useFollowingUserMutation();
   const [unFollowingUser] = useUnFollowingUserMutation();
 
   const { loginUser } = useAppSelector((state) => state.user);
@@ -70,7 +68,7 @@ const Profile = () => {
             <div className="space-x-4">
               {userId !== loginUser?.userId && (
                 <>
-                  {profileUser?.data?.followers.includes(userId) ? (
+                  {profileUser?.data?.followers?.includes(userId) ? (
                     <button
                       onClick={() => handleUnFollowing(profileUser?.data?._id)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
