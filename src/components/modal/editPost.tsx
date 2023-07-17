@@ -11,7 +11,12 @@ interface IProfileEdit {
   image?: string;
 }
 
-const EditPost = ({ editPostModal, setEditPostModal }) => {
+interface EditPostProps {
+  editPostModal: { _id: string };
+  setEditPostModal: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
   const {
     register,
     formState: { errors },
@@ -24,7 +29,9 @@ const EditPost = ({ editPostModal, setEditPostModal }) => {
   const onSubmit: SubmitHandler<IProfileEdit> = (data) => {
     const privateUrl = "44c26384eae4023f6064cf342eee9294";
     const formData = new FormData();
-    formData.append("image", data?.image[0]);
+    if (data?.image) {
+      formData.append("image", data.image[0]);
+    }
 
     fetch(`https://api.imgbb.com/1/upload?key=${privateUrl}`, {
       method: "POST",

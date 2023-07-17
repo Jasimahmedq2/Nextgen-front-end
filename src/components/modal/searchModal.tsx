@@ -13,9 +13,17 @@ import { BsSearch } from "react-icons/bs";
 import { useGetAllUserQuery } from "../../redux/features/auth/userApi";
 import { SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IUser } from "../../interfaces/user/userInteface";
+import { ILoginUser, IUser } from "../../interfaces/user/userInteface";
 
-const SearchModal = ({ openSearchModal, setOpenSearchModal }) => {
+interface SearchModalProps {
+  openSearchModal: any;
+  setOpenSearchModal: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const SearchModal = ({
+  openSearchModal,
+  setOpenSearchModal,
+}: SearchModalProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const { data, isLoading, isSuccess } = useGetAllUserQuery(undefined);

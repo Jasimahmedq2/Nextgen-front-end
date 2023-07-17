@@ -29,7 +29,7 @@ export const userApi = api.injectEndpoints({
       },
       providesTags: ["posts"],
     }),
-    profileUser: builder.query<IUser, null>({
+    profileUser: builder.query({
       query(userId) {
         return {
           url: `/users/get-user/${userId}`,
@@ -41,7 +41,7 @@ export const userApi = api.injectEndpoints({
       },
       providesTags: ["posts"],
     }),
-    getFriends: builder.query<IUser, null>({
+    getFriends: builder.query({
       query() {
         return {
           url: "/users/get-friends",

@@ -13,7 +13,15 @@ interface IPostEdit {
   bio: string;
 }
 
-const EditProfile = ({ editProfileModal, setEditeProfileModal }) => {
+interface EditePostProps {
+  editProfileModal: any;
+  setEditeProfileModal: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const EditProfile = ({
+  editProfileModal,
+  setEditeProfileModal,
+}: EditePostProps) => {
   const {
     register,
     formState: { errors },

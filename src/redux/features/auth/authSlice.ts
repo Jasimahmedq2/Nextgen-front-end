@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { ILoginUser } from "@/interfaces/user/userInteface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface ILoginUser {
-  userId: string | null;
-  email: string | null;
-  name?: {
-    firstName?: string;
-    lastName?: string;
-  };
-}
+
 
 interface IUserState {
   accessToken: string | null;

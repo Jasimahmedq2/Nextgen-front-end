@@ -26,12 +26,21 @@ import {
 } from "react-icons/ai";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useAppSelector } from "../../redux/hooks";
 
 interface ICommentInterface {
   text: string;
 }
 
-const CommentModal = ({ openCommentModal, setOpenCommentMOdal }) => {
+interface CommentModalProps {
+  openCommentModal: any;
+  setOpenCommentMOdal: (value: any) => void;
+}
+
+const CommentModal = ({
+  openCommentModal,
+  setOpenCommentMOdal,
+}: CommentModalProps) => {
   const [commentPost] = useCommentPostMutation();
   const [likePost] = useLikePostMutation();
 
@@ -223,12 +232,7 @@ const CommentModal = ({ openCommentModal, setOpenCommentMOdal }) => {
               <p className="text-sm text-red-400">text is required</p>
             )}
             <div className="modal-action">
-              <input
-                htmlFor="comment-modal"
-                className="btn"
-                type="submit"
-                value="post"
-              />
+              <input className="btn" type="submit" value="post" />
             </div>
           </form>
         </div>

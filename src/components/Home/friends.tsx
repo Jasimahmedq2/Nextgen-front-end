@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useGetFriendsQuery } from "../../redux/features/auth/userApi";
 
 const Friends = () => {
-  const { data, isLoading, isSuccess } = useGetFriendsQuery(undefined);
+  const { data, isLoading, isSuccess } = useGetFriendsQuery(null);
   console.log({ friendss: data?.followers });
   if (isLoading) {
     return <p>isLoading</p>;

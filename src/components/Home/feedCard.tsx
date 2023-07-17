@@ -30,9 +30,9 @@ interface IFeed {
 }
 
 const FeedCard: React.FC<IFeed> = ({ post }) => {
-  const [openCommentModal, setOpenCommentMOdal] = useState(null);
-  const [editPostModal, setEditPostModal] = useState(null);
-  const [deletePostModal, setDeletePostModal] = useState(null);
+  const [openCommentModal, setOpenCommentMOdal] = useState<string | null>(null);
+  const [editPostModal, setEditPostModal] = useState<IPost | null>(null);
+  const [deletePostModal, setDeletePostModal] = useState<IPost | null>(null);
 
   const { image, caption, _id, createdAt, user, likes } = post;
   // const { firstName, lastName } = user?.name;
@@ -124,7 +124,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                   className={`flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer`}
                   onClick={() => handleLike(_id)}
                 >
-                  {likes.includes(loginUser?.userId) ? (
+                  {likes.includes(loginUser?.userId ?? "") ? (
                     <AiFillHeart
                       className={`sm:text-4xl text-2xl hover:cursor-pointer text-red-300`}
                     />

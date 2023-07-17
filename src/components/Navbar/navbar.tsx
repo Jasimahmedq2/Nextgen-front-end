@@ -5,9 +5,12 @@ import SearchModal from "../modal/searchModal";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { logOut } from "../../redux/features/auth/authSlice";
+import { ILoginUser } from "@/interfaces/user/userInteface";
 
 const Navbar = () => {
-  const [openSearchModal, setOpenSearchModal] = useState(null);
+  const [openSearchModal, setOpenSearchModal] = useState<ILoginUser | null>(
+    null
+  );
   const { loginUser, isLogin } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 

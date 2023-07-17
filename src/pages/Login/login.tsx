@@ -30,7 +30,6 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [loginUser, { data, isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
@@ -114,13 +113,16 @@ const Login = () => {
                 )}
 
                 <label className="label">
-                  <Link to='/register' href="#" className="label-text-alt link link-hover">
+                  <Link
+                    to="/register"
+                    className="label-text-alt sm:text-lg link link-hover"
+                  >
                     register?
                   </Link>
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary text-white font-bold">
                   Login
                 </button>
               </div>

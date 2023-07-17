@@ -6,7 +6,15 @@
 
 import { useDeletePostMutation } from "../../redux/features/post/postApiSlice";
 
-const DeletePost = ({ deletePostModal, setDeletePostModal }) => {
+interface DeletePostProps {
+  deletePostModal: { _id: string };
+  setDeletePostModal: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const DeletePost = ({
+  deletePostModal,
+  setDeletePostModal,
+}: DeletePostProps) => {
   const [deletePost] = useDeletePostMutation();
   const handleDelete = (postId: string) => {
     deletePost(postId);

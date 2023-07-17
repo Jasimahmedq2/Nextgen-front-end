@@ -18,6 +18,7 @@ import EditProfile from "../../components/modal/editePorfile";
 import { useAppSelector } from "../../redux/hooks";
 import Friends from "../../components/Home/friends";
 import SuggestedFriends from "../../components/Home/suggestedFriends";
+import { IPost } from "@/interfaces/post/postInterfaces";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -124,7 +125,7 @@ const Profile = () => {
           <Friends />
         </div>
 
-        {data?.data?.map((post) => (
+        {data?.data?.map((post: IPost) => (
           <FeedCard key={post._id} post={post} />
         ))}
       </div>
