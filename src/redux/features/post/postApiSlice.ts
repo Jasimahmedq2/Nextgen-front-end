@@ -10,7 +10,7 @@ const postApi = api.injectEndpoints({
         url: "/post/get-posts",
         headers: {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       providesTags: ["posts"],
@@ -20,7 +20,7 @@ const postApi = api.injectEndpoints({
         url: `/post/get-user-profile-post/${userId}`,
         headers: {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       providesTags: ["posts"],
@@ -30,7 +30,7 @@ const postApi = api.injectEndpoints({
         url: `/post/like-dislike/${postId}`,
         method: "POST",
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       invalidatesTags: ["posts"],
@@ -41,7 +41,7 @@ const postApi = api.injectEndpoints({
         method: "POST",
         body: { text: data?.text },
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       invalidatesTags: ["posts"],
@@ -52,7 +52,7 @@ const postApi = api.injectEndpoints({
         method: "POST",
         body: data,
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       invalidatesTags: ["posts"],
@@ -63,7 +63,7 @@ const postApi = api.injectEndpoints({
         method: "PATCH",
         body: updatedData,
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       invalidatesTags: ["posts"],
@@ -73,7 +73,7 @@ const postApi = api.injectEndpoints({
         url: `/post/delete-post/${postId}`,
         method: "DELETE",
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       invalidatesTags: ["posts"],
@@ -82,7 +82,7 @@ const postApi = api.injectEndpoints({
       query: (postId) => ({
         url: `/post/get-post/${postId}`,
         headers: {
-          Authorization: `${localStorage.getItem("token")}`,
+          authorization: `${localStorage.getItem("token")}`,
         },
       }),
       providesTags: ["posts"],

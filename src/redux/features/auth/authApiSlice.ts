@@ -13,7 +13,6 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["posts"],
     }),
-
     registerUser: builder.mutation({
       query(data) {
         return {
@@ -23,7 +22,16 @@ const authApi = api.injectEndpoints({
         };
       },
     }),
+    getAllUser: builder.query({
+      query: (data) => ({
+        url: `/users/get-users`,
+      }),
+    }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useGetAllUserQuery,
+} = authApi;

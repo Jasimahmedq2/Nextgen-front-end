@@ -5,6 +5,7 @@ import Login from "../pages/Login/login";
 import Register from "../pages/Login/singup";
 import Profile from "../pages/profile/profile";
 import NotFoundPage from "../pages/notFound";
+import MainComponent from "@/pages/message/mainComponent";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: "/profile/:userId", element: <Profile /> },
+      { path: "/chat", element: <MainComponent /> },
     ],
   },
 
