@@ -69,16 +69,16 @@ const Profile = () => {
             <div className="space-x-4">
               {userId !== loginUser?.userId && (
                 <>
-                  {profileUser?.data?.followers?.includes(userId) ? (
+                  {profileUser?.data?.followers?.includes(loginUser?.userId) ? (
                     <button
-                      onClick={() => handleUnFollowing(profileUser?.data?._id)}
+                      onClick={() => handleUnFollowing(userId as string)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
                     >
                       unFollow
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleFollowing(profileUser?.data?._id)}
+                      onClick={() => handleFollowing(userId as string)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
                     >
                       Follow

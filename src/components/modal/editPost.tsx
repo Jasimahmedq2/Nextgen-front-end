@@ -56,7 +56,7 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
     <div className="bg-[#eceef4]  ">
       <input type="checkbox" id="update-post-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box bg-[#eceef4] w-1/2 max-w-5xl">
           <label
             htmlFor="update-post-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -64,9 +64,9 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
             ✕
           </label>
 
-          <h3 className="font-bold text-lg">Edit Profile</h3>
+          <h3 className="font-bold text-lg py-2">Edit Profile</h3>
 
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card  flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="card-body">
                 <div className="form-control">

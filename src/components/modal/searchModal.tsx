@@ -47,20 +47,18 @@ const SearchModal = ({
   };
 
   return (
-    <div className="bg-[#eceef4]  ">
+    <div className="relative">
       <input type="checkbox" id="search-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-11/12 sm:w-1/2 max-w-5xl">
+        <div className="modal-box w-1/2 bg-[#eceef4] sm:w-1/2 max-w-5xl">
           <label
             htmlFor="search-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle sticky right-2 top-2"
           >
             ✕
           </label>
 
-          <h3 className="font-bold text-lg">search user?</h3>
-
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-100">
             <div className="flex items-center space-x-2 bg-base-200 p-2 shadow-sm rounded-lg">
               <span>
                 <BsSearch />

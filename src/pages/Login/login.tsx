@@ -47,10 +47,6 @@ const Login = () => {
             position: "top-right",
           })
         );
-      } else {
-        toast.error((error as any).data?.message, {
-          position: "top-right",
-        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

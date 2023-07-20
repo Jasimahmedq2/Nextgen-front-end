@@ -25,7 +25,7 @@ const DeletePost = ({
     <div className="bg-[#eceef4]  ">
       <input type="checkbox" id="delete-post-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box w-1/2 bg-[#eceef4] max-w-5xl">
           <label
             htmlFor="delete-post-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -37,7 +37,7 @@ const DeletePost = ({
             are you want to delete the post?
           </h3>
 
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-100">
             <button
               onClick={() => handleDelete(deletePostModal?._id)}
               type="submit"
