@@ -56,7 +56,7 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
     <div className="bg-[#eceef4]  ">
       <input type="checkbox" id="update-post-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box bg-[#eceef4] w-1/2 max-w-5xl">
+        <div className="modal-box bg-[#eceef4] w-1/3 max-w-5xl">
           <label
             htmlFor="update-post-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"

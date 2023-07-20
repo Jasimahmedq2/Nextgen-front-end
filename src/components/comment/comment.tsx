@@ -81,7 +81,7 @@ const CommentModal = ({
     <div className="bg-[#eceef4]">
       <input type="checkbox" id="comment-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box w-1/2 max-w-5xl">
           <label
             onClick={() => setOpenCommentMOdal(null)}
             htmlFor="comment-modal"
@@ -94,7 +94,7 @@ const CommentModal = ({
 
           <div>
             <div className="pb-6">
-              <div className="card w-full bg-white shadow-xl">
+              <div className="card w-full mx-auto bg-white shadow-xl">
                 <div className="">
                   <div className="flex items-center space-x-2 p-2 relative rounded-lg">
                     <label className="btn  btn-circle avatar">
@@ -225,7 +225,7 @@ const CommentModal = ({
             <input
               {...register("text", { required: true })}
               type="text"
-              placeholder="Type here"
+              placeholder="add a comment"
               className="input input-bordered w-full max-full-xs"
             />
             {errors.text && (

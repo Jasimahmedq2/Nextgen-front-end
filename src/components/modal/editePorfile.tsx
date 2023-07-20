@@ -63,7 +63,7 @@ const EditProfile = ({
     <div >
       <input type="checkbox" id="edit-profile-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-1/2 bg-[#eceef4] max-w-5xl">
+        <div className="modal-box w-1/3 bg-[#eceef4] max-w-5xl">
           <label
             htmlFor="edit-profile-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"

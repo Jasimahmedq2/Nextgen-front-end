@@ -50,7 +50,7 @@ const SearchModal = ({
     <div className="relative">
       <input type="checkbox" id="search-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-1/2 bg-[#eceef4] sm:w-1/2 max-w-5xl">
+        <div className="modal-box w-1/3 bg-[#eceef4] sm:w-1/2 max-w-5xl">
           <label
             htmlFor="search-modal"
             className="btn btn-sm btn-circle sticky right-2 top-2"

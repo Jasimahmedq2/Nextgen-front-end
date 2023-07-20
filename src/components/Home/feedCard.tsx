@@ -95,8 +95,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
 
                     <label
                       htmlFor="update-post-modal"
-                      className="flex items-c
-                        enter  space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
+                      className="flex items-center ml-2  space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
                       onClick={() => setEditPostModal(post)}
                     >
                       <AiFillEdit className="sm:text-4xl text-blue-400" />{" "}
