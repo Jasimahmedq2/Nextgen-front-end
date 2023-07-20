@@ -23,7 +23,7 @@ const SendMessageForm: React.FC<{
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="mt-4 h-full bottom-0">
       <div className="flex items-center">
         <input
           type="text"

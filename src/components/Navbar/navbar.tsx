@@ -2,10 +2,11 @@
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 import SearchModal from "../modal/searchModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { logOut } from "../../redux/features/auth/authSlice";
 import { ILoginUser } from "@/interfaces/user/userInteface";
+import { AiOutlineMessage } from "react-icons/ai";
 
 const Navbar = () => {
   const [openSearchModal, setOpenSearchModal] = useState<ILoginUser | null>(
@@ -13,6 +14,11 @@ const Navbar = () => {
   );
   const { loginUser, isLogin } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const chatNavigate = () => {
+    navigate('/chat')
+  }
 
   return (
     <>
@@ -34,8 +40,22 @@ const Navbar = () => {
             </div>
           </label>
         </div>
+
         <div className="flex-none gap-2">
-          {/* <div className="flex hidden sm:block ">
+          <div className="flex ">
+            <div className="form-control w-auto sm:w-52">
+              <label className=" label">
+                <div
+                  className="hover:cursor-pointer"
+                  onClick={chatNavigate}
+                >
+                  <AiOutlineMessage className="text-xl sm:text-4xl" />
+                </div>
+              </label>
+            </div>
+          </div>
+          {/* <div className="flex-none gap-2">
+          <div className="flex hidden sm:block ">
             <div className="form-control w-auto sm:w-52">
               <label className="cursor-pointer label">
                 <input type="checkbox" className="toggle toggle-primary" />
@@ -65,6 +85,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </li> */}
+
               <li>
                 <Link
                   to={`/profile/${loginUser?.userId}`}

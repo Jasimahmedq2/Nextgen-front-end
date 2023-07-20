@@ -10,29 +10,26 @@ import UserList from "./userList";
 import ChatRoom from "./chatRoom";
 
 const MainComponent: React.FC = () => {
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const { loginUser } = useAppSelector((state) => state.user);
 
   const { data: users, isLoading } = useGetAllUserQuery(undefined);
 
-  useEffect(() => {
-    if (!isLoading) {
-      return <p>loading...</p>;
-    }
-  }, [users, isLoading]);
+  if (isLoading) {
+    return <p>loading...</p>;
+  }
 
-  const [selectedUser, setSelectedUser] = useState<string | null>(
-    users?.data?.length > 0 ? users.data[0]._id : null
-  );
+  console.log({ userData: users?.data });
 
   const handleStartChat = (receiverId: string) => {
     setSelectedUser(receiverId);
   };
 
   return (
-    <div className="px-4">
+    <div className="px-4 py-2 overflow-y-hidden">
       <h2>Hello, {loginUser?.name?.firstName}</h2>
-      <div style={{ display: "flex" }}>
-        {users && (
+      <div className="sm:flex sm:py-4">
+        {users?.data && (
           <UserList users={users?.data} onStartChat={handleStartChat} />
         )}
         {selectedUser && (
@@ -41,7 +38,7 @@ const MainComponent: React.FC = () => {
             receiverId={selectedUser}
           />
         )}
-        {!selectedUser && users?.data.length > 0 && (
+        {!selectedUser && users?.data?.length > 0 && (
           <ChatRoom
             senderId={loginUser?.userId as string}
             receiverId={users?.data[0]?._id}
