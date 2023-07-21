@@ -111,9 +111,9 @@ const CommentModal = ({
 
                     <div>
                       <h3 className="text-sm font-bold">
-                        {CData?.data?.name?.firstName +
+                        {CData?.data?.user?.name?.firstName +
                           " " +
-                          CData?.data?.name?.lastName}
+                          CData?.data?.user?.name?.lastName}
                       </h3>
                       <p className="font">{format(CData?.data?.createdAt)}</p>
                     </div>
@@ -232,7 +232,7 @@ const CommentModal = ({
               <p className="text-sm text-red-400">text is required</p>
             )}
             <div className="modal-action">
-              <input className="btn" type="submit" value="post" />
+              <input className="btn" type="submit" value="comment" />
             </div>
           </form>
         </div>

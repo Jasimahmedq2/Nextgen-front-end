@@ -23,14 +23,14 @@ const SendMessageForm: React.FC<{
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="mt-4 h-full bottom-0">
-      <div className="flex items-center">
+    <form onSubmit={handleSubmit} className="mt-4  h-full ">
+      <div className="flex items-center  ">
         <input
           type="text"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full py-2 px-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-blue-500"
-          placeholder="Type your message..."
+          className="w-full sticky bottom-0 py-2 px-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-blue-500"
+          placeholder="Message..."
         />
         <button
           type="submit"

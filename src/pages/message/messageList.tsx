@@ -26,13 +26,16 @@ const MessageList: React.FC<{
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="border rounded-lg border-gray-300 p-4 h-96 overflow-y-auto">
+    <div className="w-full p-4 ">
+
       {messages &&
         messages?.data.map((message: any) => (
           <div
             key={message._id}
             className={`mb-2 overflow-x-hidden space-y-4 ${
-              message?.sender?._id === senderId ? "text-right   flex justify-end " : "text-left flex justify-start"
+              message?.sender?._id === senderId
+                ? "text-right   flex justify-end "
+                : "text-left flex justify-start"
             }`}
           >
             <p className="text-sm">

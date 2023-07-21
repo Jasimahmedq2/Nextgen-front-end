@@ -26,9 +26,9 @@ const MainComponent: React.FC = () => {
   };
 
   return (
-    <div className="px-4 py-2 overflow-y-hidden">
+    <div className="px-4 overflow-y-hidden">
       <h2>Hello, {loginUser?.name?.firstName}</h2>
-      <div className="sm:flex sm:py-4">
+      <div className="flex sm:py-4">
         {users?.data && (
           <UserList users={users?.data} onStartChat={handleStartChat} />
         )}

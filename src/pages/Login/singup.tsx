@@ -49,19 +49,6 @@ const Register = () => {
       registerUser(registerOptions);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("User registered successfully");
-      navigate("/login");
-    }
-
-    if (isError) {
-      console.log(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-
   return (
     <div className=" bg-[#eceef4] space-y-6 sm:space-y-0 p-2">
       <h1 className="text-5xl font-bold sm:mt-12 sm:flex sm:justify-center sm:items-center">
@@ -132,14 +119,20 @@ const Register = () => {
                 )}
 
                 <label className="label">
-                  <Link to="/login" className="label-text-alt link link-hover sm:text-lg">
+                  <Link
+                    to="/login"
+                    className="label-text-alt link link-hover sm:text-lg"
+                  >
                     already have a account?
                   </Link>
                 </label>
               </div>
 
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary text-white font-bold">
+                <button
+                  type="submit"
+                  className="btn btn-primary text-white font-bold"
+                >
                   Register
                 </button>
               </div>
