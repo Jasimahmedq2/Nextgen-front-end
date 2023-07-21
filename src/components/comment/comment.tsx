@@ -44,7 +44,7 @@ const CommentModal = ({
   const [commentPost] = useCommentPostMutation();
   const [likePost] = useLikePostMutation();
 
-  const { loginUser } = useAppSelector((state) => state.user);
+  const { loginUser, isDark } = useAppSelector((state) => state.user);
 
   const {
     register,
@@ -78,10 +78,18 @@ const CommentModal = ({
   };
 
   return (
-    <div className="bg-[#eceef4]">
+    <div className={`${isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"} `}>
       <input type="checkbox" id="comment-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box w-1/2 max-w-5xl">
+      <div
+        className={`modal ${
+          isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+        } `}
+      >
+        <div
+          className={`modal-box ${
+            isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+          } w-1/2 max-w-5xl`}
+        >
           <label
             onClick={() => setOpenCommentMOdal(null)}
             htmlFor="comment-modal"
@@ -94,7 +102,11 @@ const CommentModal = ({
 
           <div>
             <div className="pb-6">
-              <div className="card w-full mx-auto bg-white shadow-xl">
+              <div
+                className={`card w-full mx-auto shadow-xl ${
+                  isDark ? "bg-[#253C42] text-white" : "bg-white"
+                } `}
+              >
                 <div className="">
                   <div className="flex items-center space-x-2 p-2 relative rounded-lg">
                     <label className="btn  btn-circle avatar">
@@ -117,39 +129,6 @@ const CommentModal = ({
                       </h3>
                       <p className="font">{format(CData?.data?.createdAt)}</p>
                     </div>
-
-                    <div className="absolute right-2 top-4">
-                      <div className="dropdown dropdown-end">
-                        <label
-                          tabIndex={0}
-                          className="hover:cursor-pointer m-1"
-                        >
-                          {" "}
-                          <BsThreeDotsVertical />
-                        </label>
-                        <div
-                          tabIndex={0}
-                          className="dropdown-content menu  shadow bg-base-200 rounded-box lg:w-52  space-y-2"
-                        >
-                          <label
-                            htmlFor="delete-post-modal"
-                            className="flex items-center p-2 space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
-                          >
-                            <AiTwotoneDelete className="sm:text-4xl text-red-300 " />{" "}
-                            <span>delete</span>
-                          </label>
-
-                          <label
-                            htmlFor="update-post-modal"
-                            className="flex items-c
-                        enter  space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
-                          >
-                            <AiFillEdit className="sm:text-4xl text-blue-400" />{" "}
-                            <span>edit</span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
                   </div>
 
                   <div className="py-4 px-2">
@@ -166,7 +145,9 @@ const CommentModal = ({
                   <div className="relative px-4 py-2 mt-4 space-x-4 ">
                     <div className="flex justify-between">
                       <h2
-                        className={`flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer`}
+                        className={`flex space-x-4 ${
+                          isDark ? "bg-[#15292B]" : "bg-base-300"
+                        }  px-6 rounded hover:cursor-pointer`}
                         onClick={() => handleLike(CData?.data?._id)}
                       >
                         {CData?.data?.likes.includes(loginUser?.userId) ? (
@@ -215,7 +196,9 @@ const CommentModal = ({
                       " " +
                       comment?.user?.name.lastName}
                   </h4>
-                  <p className="text-gray-600">{comment.text}</p>
+                  <p className={`${isDark ? "text-white" : "text-gray-600"}`}>
+                    {comment.text}
+                  </p>
                 </div>
               </div>
             ))}
@@ -232,7 +215,13 @@ const CommentModal = ({
               <p className="text-sm text-red-400">text is required</p>
             )}
             <div className="modal-action">
-              <input className="btn" type="submit" value="comment" />
+              <input
+                className={`btn ${
+                  isDark ? "bg-[#15292B] text-white" : "bg-base-300"
+                }`}
+                type="submit"
+                value="comment"
+              />
             </div>
           </form>
         </div>

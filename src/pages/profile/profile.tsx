@@ -29,7 +29,7 @@ const Profile = () => {
   const [followingUser] = useFollowingUserMutation();
   const [unFollowingUser] = useUnFollowingUserMutation();
 
-  const { loginUser } = useAppSelector((state) => state.user);
+  const { loginUser, isDark } = useAppSelector((state) => state.user);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -42,7 +42,11 @@ const Profile = () => {
   };
   return (
     <div className="min-h-screen space-y-6 sm:space-y-0">
-      <div className="w-11/12 sm:max-w-2xl bg-base-100 mt-6 sm:my-12 mx-auto p-4 rounded shadow">
+      <div
+        className={`w-11/12 sm:max-w-2xl ${
+          isDark ? "bg-[#253C42] text-white" : "bg-base-100"
+        }  mt-6 sm:my-12 mx-auto p-4 rounded shadow`}
+      >
         {/* Profile Header */}
         <div className="flex sm:relative flex-col md:flex-row items-center mb-4">
           <img

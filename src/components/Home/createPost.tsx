@@ -22,7 +22,7 @@ interface ICreatePost {
 const CreatePost = () => {
   const [preview, setPreview] = useState<string | null>(null);
 
-  const { isLogin, loginUser } = useAppSelector((state) => state.user);
+  const { isLogin, loginUser, isDark } = useAppSelector((state) => state.user);
   console.log({ isLogin, loginUser });
 
   const {
@@ -72,7 +72,11 @@ const CreatePost = () => {
 
   return (
     <div>
-      <div className=" card bg-white w-full shadow">
+      <div
+        className={` card ${
+          isDark ? "bg-[#253C42]" : "bg-white"
+        }  w-full shadow`}
+      >
         <div className="">
           <div
             style={{ marginTop: "-2rem" }}
@@ -94,7 +98,9 @@ const CreatePost = () => {
           <textarea
             {...register("caption")}
             placeholder="what's on your mind"
-            className="focus:outline-0 w-full p-6 resize-none"
+            className={`${
+              isDark ? "bg-[#253C42] text-white" : ""
+            }  focus:outline-0 w-full p-6 resize-none`}
           />
 
           <div className="divider"></div>

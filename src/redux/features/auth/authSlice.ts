@@ -2,18 +2,18 @@
 import { ILoginUser } from "@/interfaces/user/userInteface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-
-
 interface IUserState {
   accessToken: string | null;
   loginUser: ILoginUser | null;
   isLogin: boolean;
+  isDark: boolean;
 }
 
 const initialState: IUserState = {
   accessToken: null,
   loginUser: null,
   isLogin: false,
+  isDark: false,
 };
 
 const authSlice = createSlice({
@@ -33,8 +33,11 @@ const authSlice = createSlice({
       state.isLogin = false;
       state.loginUser = null;
     },
+    darkMode: (state) => {
+      state.isDark = !state.isDark;
+    },
   },
 });
 
-export const { isLoggedIn, logOut } = authSlice.actions;
+export const { isLoggedIn, logOut, darkMode } = authSlice.actions;
 export default authSlice.reducer;

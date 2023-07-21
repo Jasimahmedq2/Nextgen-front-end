@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { useAppSelector } from "@/redux/hooks";
 import { useDeletePostMutation } from "../../redux/features/post/postApiSlice";
 
 interface DeletePostProps {
@@ -16,6 +17,8 @@ const DeletePost = ({
   setDeletePostModal,
 }: DeletePostProps) => {
   const [deletePost] = useDeletePostMutation();
+
+  const { isDark } = useAppSelector((state) => state.user);
   const handleDelete = (postId: string) => {
     deletePost(postId);
     setDeletePostModal(null);
@@ -25,7 +28,11 @@ const DeletePost = ({
     <div className="bg-[#eceef4]  ">
       <input type="checkbox" id="delete-post-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-1/3 bg-[#eceef4] max-w-5xl">
+        <div
+          className={`modal-box w-1/3 ${
+            isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+          }  max-w-5xl`}
+        >
           <label
             htmlFor="delete-post-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"

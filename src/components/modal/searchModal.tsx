@@ -14,6 +14,7 @@ import { useGetAllUserQuery } from "../../redux/features/auth/userApi";
 import { SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ILoginUser, IUser } from "../../interfaces/user/userInteface";
+import { useAppSelector } from "@/redux/hooks";
 
 interface SearchModalProps {
   openSearchModal: any;
@@ -26,6 +27,8 @@ const SearchModal = ({
 }: SearchModalProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const { isDark } = useAppSelector((state) => state.user);
+
   const { data, isLoading, isSuccess } = useGetAllUserQuery(undefined);
 
   useEffect(() => {
@@ -50,7 +53,11 @@ const SearchModal = ({
     <div className="relative">
       <input type="checkbox" id="search-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-1/3 bg-[#eceef4] sm:w-1/2 max-w-5xl">
+        <div
+          className={`modal-box w-1/3 ${
+            isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+          }   sm:w-1/2 max-w-5xl`}
+        >
           <label
             htmlFor="search-modal"
             className="btn btn-sm btn-circle sticky right-2 top-2"
@@ -58,20 +65,34 @@ const SearchModal = ({
             ✕
           </label>
 
-          <div className="card flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-100">
-            <div className="flex items-center space-x-2 bg-base-200 p-2 shadow-sm rounded-lg">
+          <div
+            className={`card flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl ${
+              isDark ? "bg-[#253C42]" : "bg-base-100"
+            } `}
+          >
+            <div
+              className={`flex items-center space-x-2 ${
+                isDark ? "bg-[#253C42]" : "bg-base-200"
+              } p-2 shadow-sm rounded-lg`}
+            >
               <span>
                 <BsSearch />
               </span>
               <input
                 type="text"
                 placeholder="Search"
-                className="focus:outline-0 bg-base-200"
+                className={`focus:outline-0 ${
+                  isDark ? "bg-[#253C42]" : "bg-base-200"
+                }`}
                 onChange={handleSearch}
               />
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-2 font-bold space-y-4">
+            <div
+              className={`${
+                isDark ? "bg-[#253C42]" : "bg-white"
+              } rounded-lg shadow-md p-2 font-bold space-y-4`}
+            >
               <h2 className="text-xl sm:text-2xl ">searched user</h2>
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
                 {searchResults?.map((suggest: IUser) => {

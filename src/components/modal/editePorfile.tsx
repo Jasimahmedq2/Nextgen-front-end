@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useUpdateUserMutation } from "../../redux/features/auth/userApi";
+import { useAppSelector } from "@/redux/hooks";
 
 interface IPostEdit {
   firstName: string;
@@ -28,6 +29,8 @@ const EditProfile = ({
     reset,
     handleSubmit,
   } = useForm<IPostEdit>();
+
+  const { isDark } = useAppSelector((state) => state.user);
 
   const [updateUser] = useUpdateUserMutation();
 
@@ -60,10 +63,14 @@ const EditProfile = ({
     reset();
   };
   return (
-    <div >
+    <div>
       <input type="checkbox" id="edit-profile-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box w-1/3 bg-[#eceef4] max-w-5xl">
+        <div
+          className={`modal-box w-1/3 ${
+            isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+          }  max-w-5xl`}
+        >
           <label
             htmlFor="edit-profile-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -73,12 +80,18 @@ const EditProfile = ({
 
           <h3 className="font-bold text-lg py-4">Edit Profile</h3>
 
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 mx-auto">
+          <div
+            className={`card flex-shrink-0 w-full max-w-sm shadow-2xl ${
+              isDark ? "bg-[#253C42] text-white" : "bg-base-100"
+            }  mx-auto`}
+          >
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="card-body">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">First Name</span>
+                    <span className={`label-text ${isDark ? "text-white" : ""}`}>
+                      First Name
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -90,7 +103,7 @@ const EditProfile = ({
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Last Name</span>
+                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Last Name</span>
                   </label>
                   <input
                     type="text"
@@ -102,7 +115,7 @@ const EditProfile = ({
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Bio</span>
+                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Bio</span>
                   </label>
                   <input
                     type="text"
@@ -114,7 +127,7 @@ const EditProfile = ({
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Image</span>
+                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Image</span>
                   </label>
                   <input
                     type="file"

@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Link } from "react-router-dom";
 import { useSuggestedFriendsQuery } from "../../redux/features/auth/userApi";
+import { useAppSelector } from "@/redux/hooks";
 
 const SuggestedFriends = () => {
   const { data, isLoading, isSuccess } = useSuggestedFriendsQuery(undefined);
+
+  const { isDark } = useAppSelector((state) => state.user);
 
   if (isLoading) {
     return <p>isLoading</p>;
@@ -15,7 +19,11 @@ const SuggestedFriends = () => {
     console.log({ successData: data });
   }
   return (
-    <div className="bg-white rounded-lg shadow-md p-2 font-bold space-y-4">
+    <div
+      className={` ${
+        isDark ? "bg-[#253C42] text-white" : "bg-white"
+      } rounded-lg shadow-md p-2 font-bold space-y-4`}
+    >
       <h2 className="text-xl sm:text-2xl ">Suggested friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&

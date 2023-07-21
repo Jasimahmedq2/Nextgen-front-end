@@ -37,7 +37,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
   const { image, caption, _id, createdAt, user, likes } = post;
   // const { firstName, lastName } = user?.name;
 
-  const { loginUser } = useAppSelector((state) => state.user);
+  const { loginUser, isDark } = useAppSelector((state) => state.user);
 
   const [likePost] = useLikePostMutation();
 
@@ -50,7 +50,11 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
   return (
     <div>
       <div className="pb-6">
-        <div className="card w-full bg-white shadow-xl">
+        <div
+          className={`${
+            isDark ? "bg-[#253C42] text-white" : "bg-white "
+          } card w-full shadow-xl`}
+        >
           <div className="">
             <div className="flex items-center space-x-2 p-2 relative rounded-lg">
               <Link to={`/profile/${user?._id}`}>
@@ -82,7 +86,9 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                   </label>
                   <div
                     tabIndex={0}
-                    className="dropdown-content menu z-10  shadow bg-base-200 rounded-box lg:w-52  space-y-2"
+                    className={`dropdown-content menu z-10  shadow  ${
+                      isDark ? "bg-[#15292B]" : "bg-base-200"
+                    } rounded-box lg:w-52  space-y-2`}
                   >
                     <label
                       htmlFor="delete-post-modal"
@@ -120,7 +126,9 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
             <div className="relative px-4 py-2 mt-4 space-x-4 ">
               <div className="flex justify-between">
                 <h2
-                  className={`flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer`}
+                  className={`flex space-x-4 ${
+                    isDark ? "bg-[#15292B]" : "bg-base-300"
+                  }  px-6 rounded hover:cursor-pointer`}
                   onClick={() => handleLike(_id)}
                 >
                   {likes.includes(loginUser?.userId ?? "") ? (
@@ -137,7 +145,9 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                 </h2>
                 <label
                   htmlFor="comment-modal"
-                  className="flex space-x-4 bg-base-300 px-6 rounded hover:cursor-pointer"
+                  className={`flex space-x-4 ${
+                    isDark ? "bg-[#15292B]" : "bg-base-300"
+                  } px-6 rounded hover:cursor-pointer`}
                   onClick={() => setOpenCommentMOdal(post?._id)}
                 >
                   <AiOutlineComment className="sm:text-4xl text-2xl hover:cursor-pointer" />

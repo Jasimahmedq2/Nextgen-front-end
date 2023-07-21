@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEditPostMutation } from "../../redux/features/post/postApiSlice";
+import { useAppSelector } from "@/redux/hooks";
 
 interface IProfileEdit {
   caption?: string;
@@ -25,6 +26,8 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
   } = useForm<IProfileEdit>();
 
   const [editPost] = useEditPostMutation();
+
+  const { isDark } = useAppSelector((state) => state.user);
 
   const onSubmit: SubmitHandler<IProfileEdit> = (data) => {
     const privateUrl = "44c26384eae4023f6064cf342eee9294";
@@ -53,10 +56,14 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
     reset();
   };
   return (
-    <div className="bg-[#eceef4]  ">
+    <div className={`${isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"} `}>
       <input type="checkbox" id="update-post-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box bg-[#eceef4] w-1/3 max-w-5xl">
+        <div
+          className={`modal-box ${
+            isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
+          }  w-1/3 max-w-5xl`}
+        >
           <label
             htmlFor="update-post-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -66,12 +73,20 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
 
           <h3 className="font-bold text-lg py-2">Edit Profile</h3>
 
-          <div className="card  flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl bg-base-100">
+          <div
+            className={`card ${
+              isDark ? "bg-[#253C42] text-white" : "bg-base-100"
+            } flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl `}
+          >
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="card-body">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Caption</span>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
+                      Caption
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -83,7 +98,11 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Image</span>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
+                      Image
+                    </span>
                   </label>
                   <input
                     type="file"

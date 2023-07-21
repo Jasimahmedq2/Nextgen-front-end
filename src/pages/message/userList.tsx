@@ -8,6 +8,7 @@ import React, { useState, useEffect, SetStateAction } from "react";
 import UserItem from "./userItem";
 import { IUser } from "@/interfaces/user/userInteface";
 import { BsSearch } from "react-icons/bs";
+import { useAppSelector } from "@/redux/hooks";
 
 interface UserListProps {
   users: {
@@ -22,6 +23,8 @@ interface UserListProps {
 const UserList: React.FC<UserListProps> = ({ users, onStartChat }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<any>([]);
+
+  const { isDark } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const filteredResults = users?.filter((user) =>
@@ -40,15 +43,25 @@ const UserList: React.FC<UserListProps> = ({ users, onStartChat }) => {
   console.log({ searchResults });
 
   return (
-    <div className="bg-base-100 py-2 h-screen overflow-auto">
-      <div className="flex items-center space-x-2 bg-base-200 p-2 shadow-sm rounded-lg">
+    <div
+      className={`${
+        isDark ? "bg-[#253C42] text-white" : "bg-base-100"
+      }  py-2 h-screen overflow-auto`}
+    >
+      <div
+        className={`flex items-center space-x-2 ${
+          isDark ? "bg-[#15292B]" : "bg-base-200"
+        }  p-2 shadow-sm rounded-lg`}
+      >
         <span>
           <BsSearch />
         </span>
         <input
           type="text"
           placeholder="Search"
-          className="focus:outline-0 bg-base-200"
+          className={`focus:outline-0 ${
+            isDark ? "bg-[#15292B]" : "bg-base-200"
+          } `}
           onChange={handleSearch}
         />
       </div>
