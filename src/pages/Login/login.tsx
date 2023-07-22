@@ -34,6 +34,8 @@ const Login = () => {
   const [loginUser, { data, isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
 
+  console.log({ data: data, error: error });
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("You successfully logged in");
@@ -107,7 +109,6 @@ const Login = () => {
                 {errors.password && (
                   <p className="text-sm text-red-400">password is required</p>
                 )}
-
                 <label className="label">
                   <Link
                     to="/register"
@@ -116,6 +117,11 @@ const Login = () => {
                     register?
                   </Link>
                 </label>
+                {isError && error?.data?.message && (
+                  <p className="text-sm text-red-400">
+                    invalid user info please check your password and email
+                  </p>
+                )}
               </div>
               <div className="form-control mt-6">
                 <button
