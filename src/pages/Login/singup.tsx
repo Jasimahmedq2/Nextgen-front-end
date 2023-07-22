@@ -34,6 +34,22 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+    if (isError) {
+      if (Array.isArray((error as any).data?.error)) {
+        (error as any).data?.error.forEach((el: any) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     console.log("data here:", data);
 
@@ -47,6 +63,8 @@ const Register = () => {
         password: data.password,
       };
       registerUser(registerOptions);
+      reset();
+      navigate("/login");
     }
   };
   return (
