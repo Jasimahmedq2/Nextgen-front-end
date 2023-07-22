@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -10,9 +11,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useRegisterUserMutation } from "../../redux/features/auth/authApiSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IFormInputs {
   firstName: string;
@@ -39,14 +41,9 @@ const Register = () => {
       navigate("/");
     }
     if (isError) {
-      if (Array.isArray((error as any).data?.error)) {
-        (error as any).data?.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      }
+      toast.error(`the email already exist`);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
@@ -64,7 +61,6 @@ const Register = () => {
       };
       registerUser(registerOptions);
       reset();
-      navigate("/login");
     }
   };
   return (
@@ -176,6 +172,7 @@ const Register = () => {
           />
         </motion.div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
