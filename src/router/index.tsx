@@ -6,6 +6,9 @@ import Register from "../pages/Login/singup";
 import Profile from "../pages/profile/profile";
 import NotFoundPage from "../pages/notFound";
 import MainComponent from "@/pages/message/mainComponent";
+import SetPassword from "@/components/resetPassword/setPassword";
+import Recovered from "@/components/resetPassword/recoverd";
+import ForgetEmail from "@/components/resetPassword/forgetEmail";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,9 @@ const router = createBrowserRouter([
     path: "register",
     element: <Register />,
   },
+  { path: "/set-password/:token", element: <SetPassword /> },
+  { path: "/recovered", element: <Recovered /> },
+  { path: "/forget-email", element: <ForgetEmail /> },
   {
     path: "*",
     element: <NotFoundPage />,

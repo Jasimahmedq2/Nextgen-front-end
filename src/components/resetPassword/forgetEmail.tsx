@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -8,19 +9,18 @@
 import login from "../../assets/images/login.svg.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
-import { useLoginUserMutation } from "../../redux/features/auth/authApiSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { useForgetRequestMutation } from "../../redux/features/auth/authApiSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { isLoggedIn } from "../../redux/features/auth/authSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 
 interface IFormInputs {
   email: string;
-  password: string;
 }
 
-const Login = () => {
+const ForgetEmail = () => {
   const {
     register,
     formState: { errors },
@@ -31,16 +31,16 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [loginUser, { data, isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
+  const [forgetRequest, { data, isLoading, isError, error, isSuccess }] =
+    useForgetRequestMutation();
 
   console.log({ data: data, error: error });
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("You successfully logged in");
-      console.log(data.data);
-      navigate("/");
+      toast.success(
+        `we have sent an email for reset your password check email`
+      );
     }
     if (isError) {
       if (Array.isArray((error as any).data?.error)) {
@@ -64,19 +64,14 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    const options = {
-      email: data.email,
-      password: data.password,
-    };
-    console.log({ options });
-    loginUser(options);
+  const onSubmit: SubmitHandler<IFormInputs> = (FData) => {
+    forgetRequest(FData.email);
   };
 
   return (
     <div className=" bg-[#eceef4] space-y-6 sm:space-y-0 p-2">
       <h1 className="text-5xl font-bold sm:mt-12 sm:flex sm:justify-center sm:items-center">
-        Login now!
+        Send Email for forget password
       </h1>
       <div className="sm:flex sm:h-screen sm:justify-around sm:items-center ">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -96,47 +91,13 @@ const Login = () => {
                   <p className="text-sm text-red-400">email is required</p>
                 )}
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="password"
-                  className="input input-bordered"
-                  {...register("password", { required: true })}
-                />
-                {errors.password && (
-                  <p className="text-sm text-red-400">password is required</p>
-                )}
-                <label className="label">
-                  <Link
-                    to="/register"
-                    className="label-text-alt sm:text-lg link link-hover"
-                  >
-                    register?
-                  </Link>
-                </label>
-                <label className="label">
-                  <Link
-                    to="/forget-email"
-                    className="label-text-alt sm:text-lg link link-hover"
-                  >
-                    forget password?
-                  </Link>
-                </label>
-                {isError && (
-                  <p className="text-sm text-red-400">
-                    invalid user info please check your password and email
-                  </p>
-                )}
-              </div>
+
               <div className="form-control mt-6">
                 <button
                   type="submit"
                   className="btn btn-primary text-white font-bold"
                 >
-                  Login
+                  send
                 </button>
               </div>
             </div>
@@ -161,8 +122,9 @@ const Login = () => {
           />
         </motion.div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default Login;
+export default ForgetEmail;

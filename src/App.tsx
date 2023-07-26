@@ -5,10 +5,10 @@ import { useAppSelector } from "./redux/hooks";
 import Login from "./pages/Login/login";
 
 function App() {
-  const { isLogin, isDark } = useAppSelector((state) => state.user);
+  const { isLogin, loginUser, isDark } = useAppSelector((state) => state.user);
   return (
     <div className={`${isDark ? "bg-[#15292B]" : "main-style"}  `}>
-      {isLogin ? <MainLayout /> : <Login />}
+      {isLogin && loginUser ? <MainLayout /> : <Login />}
 
       <ToastContainer />
     </div>
