@@ -2,12 +2,14 @@
 // src/components/SendMessageForm.tsx
 import React, { useState } from "react";
 import { useCreateMessageMutation } from "../../redux/features/message/messageApiSlice";
+import { useAppSelector } from "@/redux/hooks";
 
 const SendMessageForm: React.FC<{
   senderId: string | null;
   receiverId: string;
 }> = ({ senderId, receiverId }) => {
   const [content, setContent] = useState("");
+  const { isDark } = useAppSelector((state) => state.user);
   const [sendMessage, { isLoading }] = useCreateMessageMutation();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const SendMessageForm: React.FC<{
   };
   return (
     <form onSubmit={handleSubmit} className="mt-4  h-full ">
-      <div className="flex items-center  ">
+      <div className={`flex items-center  ${isDark ? " text-black" : ""} `}>
         <input
           type="text"
           value={content}

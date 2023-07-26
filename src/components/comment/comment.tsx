@@ -88,7 +88,7 @@ const CommentModal = ({
         <div
           className={`modal-box ${
             isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
-          } w-1/2 max-w-5xl`}
+          } w-11/12 sm:w-1/2 max-w-5xl`}
         >
           <label
             onClick={() => setOpenCommentMOdal(null)}
@@ -209,7 +209,9 @@ const CommentModal = ({
               {...register("text", { required: true })}
               type="text"
               placeholder="add a comment"
-              className="input input-bordered w-full max-full-xs"
+              className={`${
+                isDark ? "bg-[#15292B] text-white border-gray-100" : ""
+              } input input-bordered w-full max-full-xs`}
             />
             {errors.text && (
               <p className="text-sm text-red-400">text is required</p>

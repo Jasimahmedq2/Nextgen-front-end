@@ -124,9 +124,13 @@ const Profile = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
       </div>
       <div className="w-11/12 sm:w-1/2 mx-auto space-y-4">
-        <div className="sm:hidden space-y-4">
-          <SuggestedFriends />
-          <Friends />
+        <div className="sm:hidden space-y-4 py-2">
+          <div className="max-h-60 overflow-y-auto ">
+            <SuggestedFriends />
+          </div>
+          <div className="max-h-60 overflow-y-auto ">
+            <Friends />
+          </div>
         </div>
 
         {data?.data?.map((post: IPost) => (

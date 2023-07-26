@@ -104,19 +104,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* <div className="flex-none gap-2">
-            <div className="flex hidden sm:block ">
-              <div className="form-control w-auto sm:w-52">
-                <label className="cursor-pointer label">
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-primary"
-                    onChange={() => dispatch(isDark())}
-                  />
-                </label>
-              </div>
-            </div>
-          </div> */}
 
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -128,19 +115,6 @@ const Navbar = () => {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
-              <li>
-                <div className=" block sm:hidden ">
-                  <div className="form-control w-auto sm:w-52">
-                    <label className="cursor-pointer label">
-                      <input
-                        type="checkbox"
-                        className="toggle toggle-primary"
-                      />
-                    </label>
-                  </div>
-                </div>
-              </li>
-
               <li>
                 <Link
                   to={`/profile/${loginUser?.userId}`}

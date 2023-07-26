@@ -23,7 +23,7 @@ const Friends = () => {
     <div
       className={` ${
         isDark ? "bg-[#253C42] text-white" : "bg-white"
-      } rounded-lg shadow-md p-2 font-bold space-y-4`}
+      } rounded-lg shadow-md p-2 font-bold space-y-4 sm:max-h-screen overflow-y-auto`}
     >
       <h2 className="text-xl sm:text-2xl ">Friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">

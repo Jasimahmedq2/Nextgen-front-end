@@ -27,7 +27,7 @@ const SearchModal = ({
 }: SearchModalProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const { isDark } = useAppSelector((state) => state.user);
+  const { isDark } = useAppSelector((state: { user: any; }) => state.user);
 
   const { data, isLoading, isSuccess } = useGetAllUserQuery(undefined);
 
@@ -54,9 +54,9 @@ const SearchModal = ({
       <input type="checkbox" id="search-modal" className="modal-toggle" />
       <div className="modal">
         <div
-          className={`modal-box w-1/3 ${
+          className={`modal-box ${
             isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
-          }   sm:w-1/2 max-w-5xl`}
+          } w-11/12 sm:w-1/2 max-w-5xl`}
         >
           <label
             htmlFor="search-modal"

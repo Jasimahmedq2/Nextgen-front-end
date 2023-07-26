@@ -117,7 +117,7 @@ const Login = () => {
                     register?
                   </Link>
                 </label>
-                {isError && error?.data?.message && (
+                {isError && (
                   <p className="text-sm text-red-400">
                     invalid user info please check your password and email
                   </p>

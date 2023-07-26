@@ -62,7 +62,7 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
         <div
           className={`modal-box ${
             isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
-          }  w-1/3 max-w-5xl`}
+          }  w-11/12 sm:w-1/3 max-w-5xl`}
         >
           <label
             htmlFor="update-post-modal"

@@ -67,7 +67,7 @@ const EditProfile = ({
       <input type="checkbox" id="edit-profile-modal" className="modal-toggle" />
       <div className="modal">
         <div
-          className={`modal-box w-1/3 ${
+          className={`modal-box w-11/12 sm:w-1/3 ${
             isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
           }  max-w-5xl`}
         >
