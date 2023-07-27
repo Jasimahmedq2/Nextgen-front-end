@@ -5,7 +5,7 @@ export default function Recovered() {
   const navigate = useNavigate();
   setTimeout(() => {
     navigate("/login");
-  }, 5000);
+  }, 3000);
   return (
     <div>
       <section className="h-screen">

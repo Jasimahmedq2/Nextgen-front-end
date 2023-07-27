@@ -34,7 +34,8 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
   const [editPostModal, setEditPostModal] = useState<IPost | null>(null);
   const [deletePostModal, setDeletePostModal] = useState<IPost | null>(null);
 
-  const { image, caption, _id, createdAt, user, likes } = post;
+  const { image, caption, _id, createdAt, user, likes, comments } = post;
+
   // const { firstName, lastName } = user?.name;
 
   const { loginUser, isDark } = useAppSelector((state) => state.user);
@@ -127,7 +128,9 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
               <div className="flex justify-between">
                 <h2
                   className={`flex space-x-4 ${
-                    isDark ? "bg-[#15292B]" : "bg-base-300"
+                    isDark
+                      ? "bg-[#15292B] bg-transparent"
+                      : "bg-base-300 bg-transparent"
                   }  px-6 rounded hover:cursor-pointer`}
                   onClick={() => handleLike(_id)}
                 >
@@ -146,12 +149,14 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                 <label
                   htmlFor="comment-modal"
                   className={`flex space-x-4 ${
-                    isDark ? "bg-[#15292B]" : "bg-base-300"
+                    isDark ? "bg-[#15292B] bg-transparent" : "bg-base-300 bg-transparent"
                   } px-6 rounded hover:cursor-pointer`}
                   onClick={() => setOpenCommentMOdal(post?._id)}
                 >
                   <AiOutlineComment className="sm:text-4xl text-2xl hover:cursor-pointer" />
-                  <span className="text-sm sm:text-xl font-serif">comment</span>
+                  <span className="text-sm sm:text-xl font-serif">
+                    {comments?.length}
+                  </span>
                 </label>
               </div>
             </div>
