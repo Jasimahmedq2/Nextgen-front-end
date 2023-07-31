@@ -79,38 +79,40 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                 <p className="font">{format(createdAt)}</p>
               </div>
 
-              <div className="absolute right-2 top-4">
-                <div className="dropdown dropdown-end">
-                  <label tabIndex={0} className="hover:cursor-pointer m-1">
-                    {" "}
-                    <BsThreeDotsVertical />
-                  </label>
-                  <div
-                    tabIndex={0}
-                    className={`dropdown-content menu z-10  shadow  ${
-                      isDark ? "bg-[#15292B]" : "bg-base-200"
-                    } rounded-box lg:w-52  space-y-2`}
-                  >
-                    <label
-                      htmlFor="delete-post-modal"
-                      className="flex items-center p-2 space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
-                      onClick={() => setDeletePostModal(post)}
-                    >
-                      <AiTwotoneDelete className="sm:text-4xl text-red-300 " />{" "}
-                      <span>delete</span>
+              {user?._id?.toString() === loginUser?.userId?.toString() && (
+                <div className="absolute right-2 top-4">
+                  <div className="dropdown dropdown-end">
+                    <label tabIndex={0} className="hover:cursor-pointer m-1">
+                      {" "}
+                      <BsThreeDotsVertical />
                     </label>
+                    <div
+                      tabIndex={0}
+                      className={`dropdown-content menu z-10  shadow  ${
+                        isDark ? "bg-[#15292B]" : "bg-base-200"
+                      } rounded-box lg:w-52  space-y-2`}
+                    >
+                      <label
+                        htmlFor="delete-post-modal"
+                        className="flex items-center p-2 space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
+                        onClick={() => setDeletePostModal(post)}
+                      >
+                        <AiTwotoneDelete className="sm:text-4xl text-red-300 " />{" "}
+                        <span>delete</span>
+                      </label>
 
-                    <label
-                      htmlFor="update-post-modal"
-                      className="flex items-center ml-2  space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
-                      onClick={() => setEditPostModal(post)}
-                    >
-                      <AiFillEdit className="sm:text-4xl text-blue-400" />{" "}
-                      <span>edit</span>
-                    </label>
+                      <label
+                        htmlFor="update-post-modal"
+                        className="flex items-center ml-2  space-x-2 hover:cursor-pointer hover:bg-base-300 rounded"
+                        onClick={() => setEditPostModal(post)}
+                      >
+                        <AiFillEdit className="sm:text-4xl text-blue-400" />{" "}
+                        <span>edit</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="py-4 px-2">
@@ -149,7 +151,9 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
                 <label
                   htmlFor="comment-modal"
                   className={`flex space-x-4 ${
-                    isDark ? "bg-[#15292B] bg-transparent" : "bg-base-300 bg-transparent"
+                    isDark
+                      ? "bg-[#15292B] bg-transparent"
+                      : "bg-base-300 bg-transparent"
                   } px-6 rounded hover:cursor-pointer`}
                   onClick={() => setOpenCommentMOdal(post?._id)}
                 >

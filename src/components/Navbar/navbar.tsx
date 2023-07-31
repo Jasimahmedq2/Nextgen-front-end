@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { darkMode, logOut } from "../../redux/features/auth/authSlice";
 import { ILoginUser } from "@/interfaces/user/userInteface";
 import { AiOutlineMessage } from "react-icons/ai";
+import title1 from "../../assets/images/title1.jpeg";
+import title3 from "../../assets/images/title3.jpeg";
 
 const Navbar = () => {
   const [openSearchModal, setOpenSearchModal] = useState<ILoginUser | null>(
@@ -35,7 +37,11 @@ const Navbar = () => {
               isDark ? "text-white" : "text-black"
             } text-sm sm:text-xl font-bold`}
           >
-            NextGen
+            <img
+              className="h-16 w-full"
+              src={isDark ? title1 : title3}
+              alt="NextGen"
+            />
           </Link>
           <label
             htmlFor="search-modal"
@@ -103,7 +109,6 @@ const Navbar = () => {
               </label>
             </div>
           </div>
-
 
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
