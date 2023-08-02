@@ -11,7 +11,7 @@ export interface IPost {
     profilePic?: string;
   };
   comments: {
-    [x: string]: ReactNode;
+    length: number;
     _id?: string;
     name?: {
       firstName?: string;
