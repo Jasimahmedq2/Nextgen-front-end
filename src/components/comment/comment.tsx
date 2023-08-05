@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -11,6 +12,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { format } from "timeago.js";
+import { useState } from "react";
 import {
   useCommentPostMutation,
   useGetOnePostQuery,
@@ -27,6 +29,9 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useAppSelector } from "../../redux/hooks";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { BsEmojiSmile } from "react-icons/bs";
 
 interface ICommentInterface {
   text: string;
@@ -43,6 +48,17 @@ const CommentModal = ({
 }: CommentModalProps) => {
   const [commentPost] = useCommentPostMutation();
   const [likePost] = useLikePostMutation();
+
+  const [showPicker, setShowPicker] = useState(false);
+  const [text, setText] = useState("");
+
+  const handleSelectEmoji = (e: { unified: any; native: any }) => {
+    const sym = e.unified.split("_");
+    const codeArray: number[] = [];
+    sym.forEach((el: string) => codeArray.push(parseInt(el, 16)));
+    let emoji = String.fromCodePoint(...codeArray);
+    setText(text + emoji);
+  };
 
   const { loginUser, isDark } = useAppSelector((state) => state.user);
 
@@ -67,10 +83,12 @@ const CommentModal = ({
   const onSubmit: SubmitHandler<ICommentInterface> = (data) => {
     const info = {
       postId: CData?.data?._id,
-      text: data?.text,
+      text: text,
     };
     commentPost(info);
     reset();
+    setShowPicker(false);
+    setText("");
   };
 
   const handleLike = (id: string) => {
@@ -80,6 +98,7 @@ const CommentModal = ({
   return (
     <div className={`${isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"} `}>
       <input type="checkbox" id="comment-modal" className="modal-toggle" />
+
       <div
         className={`modal ${
           isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
@@ -205,14 +224,39 @@ const CommentModal = ({
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              {...register("text", { required: true })}
-              type="text"
-              placeholder="add a comment"
-              className={`${
-                isDark ? "bg-[#15292B] text-white border-gray-100" : ""
-              } input input-bordered w-full max-full-xs`}
-            />
+            <div className="flex justify-between items-center">
+              <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                // {...register("text", { required: true })}
+                type="text"
+                placeholder="add a comment"
+                className={`${
+                  isDark ? "bg-[#15292B] text-white border-gray-100" : ""
+                } input input-bordered w-full max-full-xs`}
+              />
+              {/* emojis */}
+              <div className="flex justify-end items-center mr-4">
+                <details className="dropdown dropdown-end">
+                  <summary
+                    onClick={() => setShowPicker(!showPicker)}
+                    className="m-1 btn"
+                  >
+                    <span className="hover:cursor-pointer flex justify-center items-center sm:text-2xl text-orange-400 hover:text-slate-300">
+                      <BsEmojiSmile />
+                    </span>
+                  </summary>
+                  <ul className="p-2 shadow menu dropdown-content z-[1] rounded-box">
+                    <li>
+                      {showPicker && (
+                        <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+                      )}
+                    </li>
+                  </ul>
+                </details>
+              </div>
+            </div>
+
             {errors.text && (
               <p className="text-sm text-red-400">text is required</p>
             )}

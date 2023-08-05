@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -13,6 +15,9 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Link } from "react-router-dom";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { BsEmojiSmile } from "react-icons/bs";
 
 interface ICreatePost {
   caption: string;
@@ -21,6 +26,16 @@ interface ICreatePost {
 
 const CreatePost = () => {
   const [preview, setPreview] = useState<string | null>(null);
+  const [showPicker, setShowPicker] = useState(false);
+  const [text, setText] = useState("");
+
+  const handleSelectEmoji = (e: { unified: any; native: any }) => {
+    const sym = e.unified.split("_");
+    const codeArray: number[] = [];
+    sym.forEach((el: string) => codeArray.push(parseInt(el, 16)));
+    let emoji = String.fromCodePoint(...codeArray);
+    setText(text + emoji);
+  };
 
   const { isLogin, loginUser, isDark } = useAppSelector((state) => state.user);
   console.log({ isLogin, loginUser });
@@ -46,7 +61,7 @@ const CreatePost = () => {
       .then((res) => res.json())
       .then((result) => {
         const postInfo = {
-          caption: data?.caption,
+          caption: text,
           image: result?.data?.url,
         };
         createPost(postInfo);
@@ -54,6 +69,8 @@ const CreatePost = () => {
 
     reset();
     setPreview(null);
+    setText("");
+    setShowPicker(false);
   };
 
   useEffect(() => {
@@ -96,12 +113,35 @@ const CreatePost = () => {
         </div>
         <form className="relative" onSubmit={handleSubmit(onSubmit)}>
           <textarea
-            {...register("caption")}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            // {...register("caption")}
             placeholder="what's on your mind"
             className={`${
               isDark ? "bg-[#253C42] text-white" : ""
             }  focus:outline-0 w-full p-6 resize-none`}
           />
+
+          {/* emojis */}
+          <div className="flex justify-end items-center mr-4">
+            <details className="dropdown">
+              <summary
+                onClick={() => setShowPicker(!showPicker)}
+                className="m-1 btn"
+              >
+                <span className="hover:cursor-pointer flex justify-center items-center sm:text-2xl text-orange-400 hover:text-slate-300">
+                  <BsEmojiSmile />
+                </span>
+              </summary>
+              <ul className="p-2 shadow menu dropdown-content z-[1] rounded-box w-52">
+                <li>
+                  {showPicker && (
+                    <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+                  )}
+                </li>
+              </ul>
+            </details>
+          </div>
 
           <div className="divider"></div>
 
