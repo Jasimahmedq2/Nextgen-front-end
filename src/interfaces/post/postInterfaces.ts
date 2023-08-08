@@ -25,7 +25,9 @@ export interface IPost {
   name: string;
   following: string[];
   followers: string[];
-  image?: string;
+  images?: string[];
+  videos?: string[];
+  audios?: string[];
   createdAt: Date;
   updatedAt: Date;
   __v: number;
