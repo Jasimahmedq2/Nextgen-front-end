@@ -38,14 +38,15 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/");
+      toast.success("check mail to verify your email");
+      // navigate("/");
     }
     if (isError) {
-      toast.error(`the email already exist`);
+      toast.error(`something went wrong`);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isSuccess, isLoading]);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     console.log("data here:", data);

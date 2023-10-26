@@ -23,15 +23,12 @@ import { LiaFileAudio } from "react-icons/lia";
 
 interface ICreatePost {
   caption: string;
-  images: any;
-  videos: any;
-  audios: any;
+  image: string;
 }
 
 const CreatePost = () => {
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [previewVideos, setPreviewVideos] = useState<string[]>([]);
-  const [previewAudios, setPreviewAudios] = useState<string[]>([]);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [showPicker, setShowPicker] = useState(false);
   const [text, setText] = useState("");
@@ -50,39 +47,37 @@ const CreatePost = () => {
   const {
     register,
     formState: { errors },
+    reset,
     handleSubmit,
   } = useForm<ICreatePost>();
 
-  const [createPost, { isLoading, isSuccess }] = useCreatePostMutation();
+  const [createPost, { isLoading, isSuccess, isError }] =
+    useCreatePostMutation();
 
   // eslint-disable-next-line @typescript-eslint/require-await
   const onSubmit: SubmitHandler<ICreatePost> = async (data) => {
+    setLoading(true);
     const formData = new FormData();
-    for (let i = 0; i < data.images.length; i++) {
-      formData.append("images", data.images[i]);
-    }
-    for (let i = 0; i < data.videos.length; i++) {
-      formData.append("videos", data.videos[i]);
-    }
-    for (let i = 0; i < data.audios.length; i++) {
-      formData.append("audios", data.audios[i]);
-    }
-    formData.append("caption", text);
+    formData.append("image", data?.image[0]);
+    const privateUrl = "44c26384eae4023f6064cf342eee9294";
 
-    console.log({ bodyInfo: data });
+    fetch(`https://api.imgbb.com/1/upload?key=${privateUrl}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const postInfo = {
+          caption: text,
+          image: result?.data?.url,
+        };
+        createPost(postInfo);
+        setLoading(false);
+      });
 
-    try {
-      const response = await createPost(formData).unwrap();
-      console.log("Post created successfully:", response);
-      toast.success("Post created successfully");
-    } catch (error) {
-      console.error("Error creating post:", error);
-      toast.error("Error creating post");
-    }
+    reset();
+    setPreview(null);
 
-    setPreviewImages([]);
-    setPreviewVideos([]);
-    setPreviewAudios([]);
     setText("");
     setShowPicker(false);
   };
@@ -99,7 +94,18 @@ const CreatePost = () => {
         progress: undefined,
       });
     }
-  }, []);
+    if (isError) {
+      toast.error(`something went wrong`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [isLoading, isError, isSuccess]);
 
   return (
     <div>
@@ -163,89 +169,25 @@ const CreatePost = () => {
 
           <div className="pb-16  ">
             <div className="flex justify-center space-x-6 ">
-              {/* <label>
+              <label>
                 <input
                   type="file"
-                  {...register("images", {
+                  accept="image/*"
+                  {...register("image", {
                     onChange: (e) => {
                       setPreview(URL.createObjectURL(e.target.files[0]));
                     },
                   })}
                   className="hidden"
-                />
-                <span className="text-4xl hover:cursor-pointer">
-                  <HiOutlinePhotograph className="text-blue-400" />
-                </span>
-              </label> */}
-
-              <label>
-                <input
-                  type="file"
-                  accept="video/*"
-                  {...register("videos", {
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      if (e.target.files) {
-                        const videosPreview = Array.from(e.target.files).map(
-                          (file) => URL.createObjectURL(file)
-                        );
-                        setPreviewVideos(videosPreview);
-                      }
-                    },
-                  })}
-                  className="hidden"
-                  multiple
-                />
-                <span className="text-4xl hover:cursor-pointer">
-                  <AiOutlineVideoCameraAdd className="text-blue-400" />
-                </span>
-              </label>
-              <label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("images", {
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      if (e.target.files) {
-                        const imagesPreview = Array.from(e.target.files).map(
-                          (file) => URL.createObjectURL(file)
-                        );
-                        setPreviewImages(imagesPreview);
-                      }
-                    },
-                  })}
-                  className="hidden"
                   multiple
                 />
                 <span className="text-4xl hover:cursor-pointer">
                   <HiOutlinePhotograph className="text-blue-400" />
-                </span>
-              </label>
-
-              <label>
-                <input
-                  type="file"
-                  accept="audio/*"
-                  {...register("audios", {
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                      if (e.target.files) {
-                        const audiosPreview = Array.from(e.target.files).map(
-                          (file) => URL.createObjectURL(file)
-                        );
-                        setPreviewAudios(audiosPreview);
-                      }
-                    },
-                  })}
-                  // onChange={handleAudioChange}
-                  className="hidden"
-                  multiple
-                />
-                <span className="text-4xl hover:cursor-pointer">
-                  <LiaFileAudio className="text-blue-400" />
                 </span>
               </label>
             </div>
             <div>
-              {/* {preview && (
+              {preview && (
                 <div className="mt-4">
                   <img
                     src={preview}
@@ -253,32 +195,7 @@ const CreatePost = () => {
                     className="max-w-11/12 mx-auto max-h-80 object-contain rounded-lg "
                   />
                 </div>
-              )} */}
-              {previewImages.map((imagePreview, index) => (
-                <div key={index} className="mt-4">
-                  <img
-                    src={imagePreview}
-                    alt={`Image Preview ${index}`}
-                    className="max-w-11/12 mx-auto max-h-80 object-contain rounded-lg"
-                  />
-                </div>
-              ))}
-              {previewVideos.map((videoPreview, index) => (
-                <div key={index} className="mt-4">
-                  <video controls className="max-w-11/12 mx-auto max-h-80">
-                    <source src={videoPreview} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              ))}
-              {previewAudios.map((audioPreview, index) => (
-                <div key={index} className="mt-4">
-                  <audio controls className="max-w-11/12 mx-auto">
-                    <source src={audioPreview} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              ))}
+              )}
             </div>
           </div>
 
@@ -286,7 +203,7 @@ const CreatePost = () => {
             className="btn btn-accent text-2xl absolute left-0 right-0 bottom-0"
             type="submit"
           >
-            {isLoading ? "loading..." : "post"}
+            {loading ? "loading..." : "post"}
           </button>
         </form>
       </div>

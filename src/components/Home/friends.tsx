@@ -6,6 +6,7 @@
 import { Link } from "react-router-dom";
 import { useGetFriendsQuery } from "../../redux/features/auth/userApi";
 import { useAppSelector } from "@/redux/hooks";
+import Loader from "../loader";
 
 const Friends = () => {
   const { data, isLoading, isSuccess } = useGetFriendsQuery(null);
@@ -14,7 +15,7 @@ const Friends = () => {
   const { isDark } = useAppSelector((state) => state.user);
 
   if (isLoading) {
-    return <p>isLoading</p>;
+    return <Loader loading={true} />;
   }
   if (isSuccess) {
     console.log({ successData: data });
@@ -25,7 +26,7 @@ const Friends = () => {
         isDark ? "bg-[#253C42] text-white" : "bg-white"
       } rounded-lg shadow-md p-2 font-bold space-y-4 sm:max-h-screen overflow-y-auto`}
     >
-      <h2 className="text-xl sm:text-2xl ">Friends</h2>
+      <h2 className="text-xl sm:text-2xl ">Followers</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&
           data?.data?.followers?.map((suggest: any) => {

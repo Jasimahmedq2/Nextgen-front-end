@@ -46,7 +46,7 @@ const UserList: React.FC<UserListProps> = ({ users, onStartChat }) => {
     <div
       className={`${
         isDark ? "bg-[#253C42] text-white" : "bg-base-100"
-      }  py-2 h-screen overflow-auto`}
+      }  py-2 sm:w-80 h-screen sticky top-0 bottom-0 left-0 overflow-auto`}
     >
       <div
         className={`flex items-center space-x-2 ${

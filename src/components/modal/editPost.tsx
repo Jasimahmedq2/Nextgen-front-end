@@ -6,6 +6,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEditPostMutation } from "../../redux/features/post/postApiSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 
 interface IProfileEdit {
   caption?: string;
@@ -13,11 +14,12 @@ interface IProfileEdit {
 }
 
 interface EditPostProps {
-  editPostModal: { _id: string };
+  editPostModal: any;
   setEditPostModal: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
+  console.log("editPostModal", editPostModal);
   const {
     register,
     formState: { errors },
@@ -53,8 +55,14 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
         editPost(profileOptions);
       });
     setEditPostModal(null);
-    reset();
   };
+
+  useEffect(() => {
+    reset({
+      caption: editPostModal?.caption,
+      image: editPostModal?.image
+    });
+  }, [editPostModal, setEditPostModal, reset]);
   return (
     <div className={`${isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"} `}>
       <input type="checkbox" id="update-post-modal" className="modal-toggle" />

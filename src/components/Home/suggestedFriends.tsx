@@ -6,6 +6,7 @@
 import { Link } from "react-router-dom";
 import { useSuggestedFriendsQuery } from "../../redux/features/auth/userApi";
 import { useAppSelector } from "@/redux/hooks";
+import Loader from "../loader";
 
 const SuggestedFriends = () => {
   const { data, isLoading, isSuccess } = useSuggestedFriendsQuery(undefined);
@@ -13,7 +14,7 @@ const SuggestedFriends = () => {
   const { isDark } = useAppSelector((state) => state.user);
 
   if (isLoading) {
-    return <p>isLoading</p>;
+    return <Loader loading={true} />;
   }
   if (isSuccess) {
     console.log({ successData: data });

@@ -22,4 +22,5 @@ export interface ILoginUser {
     firstName?: string;
     lastName?: string;
   };
+  image: string
 }

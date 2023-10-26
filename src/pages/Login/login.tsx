@@ -12,8 +12,9 @@ import { useLoginUserMutation } from "../../redux/features/auth/authApiSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { isLoggedIn } from "../../redux/features/auth/authSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 interface IFormInputs {
   email: string;
@@ -161,6 +162,7 @@ const Login = () => {
           />
         </motion.div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

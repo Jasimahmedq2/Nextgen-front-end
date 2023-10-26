@@ -31,7 +31,7 @@ const ChatRoom: React.FC<{ senderId: string | null; receiverId: string }> = ({
     <div
       className={`${
         isDark ? "text-white" : ""
-      } container w-full sm:w-[70%] sm:relative h-screen px-4`}
+      } container w-full  sm:sticky top-0 left-0 right-0 h-screen px-4`}
     >
       <div
         className="sm:flex border-b-4 border-gray-300 sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg"
@@ -52,10 +52,10 @@ const ChatRoom: React.FC<{ senderId: string | null; receiverId: string }> = ({
           {receiver?.name?.firstName + " " + receiver?.name?.lastName}
         </h4>
       </div>
-      <div className="h-2/3 overflow-y-auto">
+      <div className="h-[70%] overflow-y-auto">
         <MessageList senderId={senderId} receiverId={receiverId} />
       </div>
-      <div className="sm:fixed sm:bottom-5 sm:w-[70%]">
+      <div className="sm:fixed right-20  sm:bottom-5 sm:w-[70%]">
         <SendMessageForm senderId={senderId} receiverId={receiverId} />
       </div>
     </div>

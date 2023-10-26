@@ -18,9 +18,17 @@ const authApi = api.injectEndpoints({
     registerUser: builder.mutation({
       query(data) {
         return {
-          url: "/users/create-user",
+          url: "/auth/create-user",
           method: "POST",
           body: data,
+        };
+      },
+    }),
+    verifyEmail: builder.mutation({
+      query(token) {
+        return {
+          url: `/auth/verify/${token}`,
+          method: "POST",
         };
       },
     }),
@@ -52,4 +60,5 @@ export const {
   useGetAllUserQuery,
   useForgetRequestMutation,
   useResetPasswordMutation,
+  useVerifyEmailMutation,
 } = authApi;

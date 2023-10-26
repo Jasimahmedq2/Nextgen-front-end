@@ -6,6 +6,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useUpdateUserMutation } from "../../redux/features/auth/userApi";
 import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 
 interface IPostEdit {
   firstName: string;
@@ -23,6 +24,7 @@ const EditProfile = ({
   editProfileModal,
   setEditeProfileModal,
 }: EditePostProps) => {
+  console.log({ editProfileModal });
   const {
     register,
     formState: { errors },
@@ -60,8 +62,17 @@ const EditProfile = ({
         updateUser(profileOptions);
       });
     setEditeProfileModal(null);
-    reset();
   };
+
+  useEffect(() => {
+    reset({
+      firstName: editProfileModal?.name?.firstName,
+      lastName: editProfileModal?.name?.lastName,
+      bio: editProfileModal?.bio,
+      profilePic: editProfileModal?.profilePic
+    });
+  }, [editProfileModal, reset, setEditeProfileModal]);
+
   return (
     <div>
       <input type="checkbox" id="edit-profile-modal" className="modal-toggle" />
@@ -89,7 +100,9 @@ const EditProfile = ({
               <div className="card-body">
                 <div className="form-control">
                   <label className="label">
-                    <span className={`label-text ${isDark ? "text-white" : ""}`}>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
                       First Name
                     </span>
                   </label>
@@ -103,7 +116,11 @@ const EditProfile = ({
 
                 <div className="form-control">
                   <label className="label">
-                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Last Name</span>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
+                      Last Name
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -115,19 +132,26 @@ const EditProfile = ({
 
                 <div className="form-control">
                   <label className="label">
-                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Bio</span>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
+                      Bio
+                    </span>
                   </label>
-                  <input
-                    type="text"
+                  <textarea    
                     placeholder="bio"
-                    className="input input-bordered"
+                    className="input input-bordered h-20 resize-none"
                     {...register("bio")}
                   />
                 </div>
 
                 <div className="form-control">
                   <label className="label">
-                    <span className={`label-text ${isDark ? "text-white" : ""}`}>Image</span>
+                    <span
+                      className={`label-text ${isDark ? "text-white" : ""}`}
+                    >
+                      Image
+                    </span>
                   </label>
                   <input
                     type="file"

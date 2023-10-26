@@ -34,17 +34,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
   const [editPostModal, setEditPostModal] = useState<IPost | null>(null);
   const [deletePostModal, setDeletePostModal] = useState<IPost | null>(null);
 
-  const {
-    images,
-    videos,
-    audios,
-    caption,
-    _id,
-    createdAt,
-    user,
-    likes,
-    comments,
-  } = post;
+  const { image, caption, _id, createdAt, user, likes, comments } = post;
 
   // const { firstName, lastName } = user?.name;
 
@@ -129,55 +119,15 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
               <p>{caption}</p>
             </div>
             <div className="space-y-2">
-              {images &&
-                images?.length > 0 &&
-                images?.map((image, index) => {
-                  return (
-                    <div key={index} className="p-2 rounded-lg">
-                      <img
-                        style={{ maxHeight: "25rem", width: "100%" }}
-                        src={`http://localhost:5000/${image}`}
-                        alt=""
-                      />
-                    </div>
-                  );
-                })}
-              {videos &&
-                videos?.length > 0 &&
-                videos?.map(
-                  (video: any, index: React.Key | null | undefined) => {
-                    return (
-                      <div key={index} className="p-2 rounded-lg">
-                        <video
-                          controls
-                          style={{ maxHeight: "25rem", width: "100%" }}
-                        >
-                          <source
-                            src={`http://localhost:5000/${video}`}
-                            type="video/mp4"
-                          ></source>
-                        </video>
-                      </div>
-                    );
-                  }
-                )}
-              {audios &&
-                audios?.length > 0 &&
-                audios?.map(
-                  (audio: any, index: React.Key | null | undefined) => {
-                    return (
-                      <div key={index} className="p-2 rounded-lg">
-                        <audio controls>
-                          <source
-                            src={`http://localhost:5000/${audio}`}
-                            type="audio/mp3"
-                          />
-                          Your browser does not support the audio tag.
-                        </audio>
-                      </div>
-                    );
-                  }
-                )}
+              {image && (
+                <div className="p-2 rounded-lg">
+                  <img
+                    style={{ maxHeight: "25rem", width: "100%" }}
+                    src={image}
+                    alt=""
+                  />
+                </div>
+              )}
             </div>
 
             <div className="relative px-4 py-2 mt-4 space-x-4 ">

@@ -9,6 +9,7 @@ import MainComponent from "@/pages/message/mainComponent";
 import SetPassword from "@/components/resetPassword/setPassword";
 import Recovered from "@/components/resetPassword/recoverd";
 import ForgetEmail from "@/components/resetPassword/forgetEmail";
+import VerifyEmail from "@/pages/verifyEmail";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
   { path: "/set-password/:token", element: <SetPassword /> },
   { path: "/recovered", element: <Recovered /> },
   { path: "/forget-email", element: <ForgetEmail /> },
+  { path: "/verify/:token", element: <VerifyEmail /> },
   {
     path: "*",
     element: <NotFoundPage />,
