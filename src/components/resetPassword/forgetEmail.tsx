@@ -57,7 +57,7 @@ const ForgetEmail = () => {
   useEffect(() => {
     if (isSuccess) {
       reset();
-      dispatch(isLoggedIn(data?.data));
+      dispatch(isLoggedIn(data));
       const accessToken = data?.data?.accessToken;
       localStorage.setItem("token", accessToken);
     }

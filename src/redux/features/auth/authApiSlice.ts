@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { json } from "stream/consumers";
-import { api } from "../../api/apiSclice";
+
+import { api } from "@/redux/api/apiSclice";
 
 const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,7 +33,7 @@ const authApi = api.injectEndpoints({
       },
     }),
     getAllUser: builder.query({
-      query: (data) => ({
+      query: () => ({
         url: `/users/get-users`,
       }),
     }),

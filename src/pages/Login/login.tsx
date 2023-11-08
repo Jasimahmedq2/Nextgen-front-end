@@ -32,20 +32,18 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [loginUser, { data, isLoading, isError, error, isSuccess }] =
+  const [loginUser, { data: LData, isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
-
-  console.log({ data: data, error: error });
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("You successfully logged in");
-      console.log(data.data);
+      console.log(LData);
       navigate("/");
     }
     if (isError) {
       if (Array.isArray((error as any).data?.error)) {
-        (error as any).data?.error.forEach((el: any) =>
+        (error as any).LData?.error.forEach((el: any) =>
           toast.error(el.message, {
             position: "top-right",
           })
@@ -58,8 +56,8 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess) {
       reset();
-      dispatch(isLoggedIn(data?.data));
-      const accessToken = data?.data?.accessToken;
+      dispatch(isLoggedIn(LData?.data));
+      const accessToken = LData?.data?.accessToken;
       localStorage.setItem("token", accessToken);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

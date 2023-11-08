@@ -73,11 +73,11 @@ const CommentModal = ({
 
   useEffect(() => {
     if (!isLoading && CData) {
-      setOpenCommentMOdal(CData.data?._id);
+      setOpenCommentMOdal(CData?.data?._id);
     }
   }, [CData, isLoading, setOpenCommentMOdal]);
 
-  // const { _id, caption, createdAt, user, likes } = data?.data;
+  // const { _id, caption, createdAt, user, likes } = data?;
   // const { firstName, lastName } = user?.name;
 
   const onSubmit: SubmitHandler<ICommentInterface> = (data) => {

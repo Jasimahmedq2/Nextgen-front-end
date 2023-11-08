@@ -93,12 +93,10 @@ const SearchModal = ({
                 isDark ? "bg-[#253C42]" : "bg-white"
               } rounded-lg shadow-md p-2 font-bold space-y-4`}
             >
-              {searchResults.length > 0 ? (
+              {searchResults?.length > 0 ? (
                 <h2 className="text-xl sm:text-2xl ">searched user</h2>
               ) : (
-                <h2 className="text-xl sm:text-2xl ">
-                  user doesn't exist 
-                </h2>
+                <h2 className="text-xl sm:text-2xl ">user doesn't exist</h2>
               )}
 
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">

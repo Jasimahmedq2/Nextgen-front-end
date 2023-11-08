@@ -10,7 +10,7 @@ import Loader from "../loader";
 
 const Friends = () => {
   const { data, isLoading, isSuccess } = useGetFriendsQuery(null);
-  console.log({ friendss: data?.followers });
+  console.log({ friendss: data?.data?.followers });
 
   const { isDark } = useAppSelector((state) => state.user);
 
