@@ -34,7 +34,7 @@ const EditPost = ({ editPostModal, setEditPostModal }: EditPostProps) => {
   const onSubmit: SubmitHandler<IProfileEdit> = (data) => {
     const privateUrl = "44c26384eae4023f6064cf342eee9294";
     const formData = new FormData();
-    if (data?.data?.image) {
+    if (data?.image) {
       formData.append("image", data.image[0]);
     }
 

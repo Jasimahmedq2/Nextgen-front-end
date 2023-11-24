@@ -8,3 +8,4 @@ export const api = createApi({
   tagTypes: ["posts", "message"],
   endpoints: () => ({}),
 });
+// https://nextgen-one.vercel.app/api/v1/
