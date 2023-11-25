@@ -32,6 +32,7 @@ import { useAppSelector } from "../../redux/hooks";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { BsEmojiSmile } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 interface ICommentInterface {
   text: string;
@@ -128,17 +129,19 @@ const CommentModal = ({
               >
                 <div className="">
                   <div className="flex items-center space-x-2 p-2 relative rounded-lg">
-                    <label className="btn  btn-circle avatar">
-                      <div className="w-10 rounded-full">
-                        <img
-                          src={
-                            CData?.data?.user?.profilePic ||
-                            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                          }
-                          alt="user img"
-                        />
-                      </div>
-                    </label>
+                    <Link to={`/profile/${CData?.data?.user?._id}`}>
+                      <label className="btn  btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                          <img
+                            src={
+                              CData?.data?.user?.profilePic ||
+                              "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                            }
+                            alt="user img"
+                          />
+                        </div>
+                      </label>
+                    </Link>
 
                     <div>
                       <h3 className="text-sm font-bold">
@@ -197,18 +200,20 @@ const CommentModal = ({
           <div className="max-h-96 space-y-4 py-4 overflow-y-auto">
             {CData?.data?.comments?.map((comment: any) => (
               <div className="flex items-start mb-4">
-                <img
-                  src={
-                    comment.profilePic ||
-                    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                  }
-                  alt={`${
-                    comment?.user?.name?.firstName +
-                    "" +
-                    comment?.user?.name.lastName
-                  }'s profile picture`}
-                  className="w-8 h-8 rounded-full mr-2"
-                />
+                <Link to={`/profile/${comment?.user?._id}`}>
+                  <img
+                    src={
+                      comment?.user?.profilePic ||
+                      "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    }
+                    alt={`${
+                      comment?.user?.name?.firstName +
+                      "" +
+                      comment?.user?.name.lastName
+                    }'s profile picture`}
+                    className="w-8 h-8 rounded-full mr-2 hover:cursor-pointer"
+                  />
+                </Link>
                 <div>
                   <h4 className="text-sm font-semibold">
                     {comment?.user?.name?.firstName +

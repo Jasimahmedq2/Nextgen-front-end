@@ -27,7 +27,12 @@ const Login = () => {
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<IFormInputs>();
+  } = useForm<IFormInputs>({
+    defaultValues: {
+      email: "jasim.dev48@gmail.com",
+      password: "123456"
+    }
+  });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

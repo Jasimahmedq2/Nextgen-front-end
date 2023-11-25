@@ -7,6 +7,7 @@ interface IUserState {
   loginUser: ILoginUser | null;
   isLogin: boolean;
   isDark: boolean;
+  profilePic: string | null;
 }
 
 const initialState: IUserState = {
@@ -14,6 +15,7 @@ const initialState: IUserState = {
   loginUser: null,
   isLogin: false,
   isDark: false,
+  profilePic: null,
 };
 
 const authSlice = createSlice({
@@ -36,8 +38,11 @@ const authSlice = createSlice({
     darkMode: (state) => {
       state.isDark = !state.isDark;
     },
+    setImage: (state, action: PayloadAction<string>) => {
+      state.profilePic = action.payload;
+    },
   },
 });
 
-export const { isLoggedIn, logOut, darkMode } = authSlice.actions;
+export const { isLoggedIn, logOut, darkMode, setImage } = authSlice.actions;
 export default authSlice.reducer;

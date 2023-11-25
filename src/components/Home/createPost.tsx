@@ -41,7 +41,9 @@ const CreatePost = () => {
     setText(text + emoji);
   };
 
-  const { isLogin, loginUser, isDark } = useAppSelector((state) => state.user);
+  const { isLogin, loginUser, isDark, profilePic } = useAppSelector(
+    (state) => state.user
+  );
   console.log({ isLogin, loginUser });
 
   const {
@@ -123,7 +125,10 @@ const CreatePost = () => {
               <label className="btn  btn-circle avatar">
                 <div className="w-12 rounded-full">
                   <img
-                    src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    src={
+                      profilePic ||
+                      "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    }
                     alt="user img"
                   />
                 </div>

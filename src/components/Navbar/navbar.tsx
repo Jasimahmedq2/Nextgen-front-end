@@ -15,7 +15,9 @@ const Navbar = () => {
   const [openSearchModal, setOpenSearchModal] = useState<ILoginUser | null>(
     null
   );
-  const { loginUser, isLogin, isDark } = useAppSelector((state) => state.user);
+  const { loginUser, isLogin, isDark, profilePic } = useAppSelector(
+    (state) => state.user
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -113,7 +115,12 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-8 sm:w-10 rounded-full">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
+                <img
+                  src={
+                    profilePic ||
+                    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  }
+                />
               </div>
             </label>
             <ul

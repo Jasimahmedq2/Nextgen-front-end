@@ -19,6 +19,7 @@ import { useAppSelector } from "../../redux/hooks";
 import Friends from "../../components/Home/friends";
 import SuggestedFriends from "../../components/Home/suggestedFriends";
 import { IPost } from "@/interfaces/post/postInterfaces";
+import Loader from "@/components/loader";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -32,7 +33,7 @@ const Profile = () => {
   const { loginUser, isDark } = useAppSelector((state) => state.user);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader loading={true} />;
   }
   const handleFollowing = async (id: string) => {
     await followingUser(id);

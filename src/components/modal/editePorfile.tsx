@@ -5,8 +5,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useUpdateUserMutation } from "../../redux/features/auth/userApi";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
+import { setImage } from "@/redux/features/auth/authSlice";
 
 interface IPostEdit {
   firstName: string;
@@ -24,7 +25,7 @@ const EditProfile = ({
   editProfileModal,
   setEditeProfileModal,
 }: EditePostProps) => {
-  console.log({ editProfileModal });
+  const dispatch = useAppDispatch();
   const {
     register,
     formState: { errors },
@@ -58,7 +59,8 @@ const EditProfile = ({
           },
           userId: editProfileModal?._id,
         };
-        console.log({ profileOptions });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        dispatch(setImage(result?.data?.url));
         updateUser(profileOptions);
       });
     setEditeProfileModal(null);
@@ -69,7 +71,7 @@ const EditProfile = ({
       firstName: editProfileModal?.name?.firstName,
       lastName: editProfileModal?.name?.lastName,
       bio: editProfileModal?.bio,
-      profilePic: editProfileModal?.profilePic
+      profilePic: editProfileModal?.profilePic,
     });
   }, [editProfileModal, reset, setEditeProfileModal]);
 
@@ -109,7 +111,7 @@ const EditProfile = ({
                   <input
                     type="text"
                     placeholder="first name"
-                    className="input input-bordered"
+                    className="input input-bordered text-black "
                     {...register("firstName")}
                   />
                 </div>
@@ -125,7 +127,7 @@ const EditProfile = ({
                   <input
                     type="text"
                     placeholder="last name"
-                    className="input input-bordered"
+                    className="input input-bordered text-black"
                     {...register("lastName")}
                   />
                 </div>
@@ -138,9 +140,9 @@ const EditProfile = ({
                       Bio
                     </span>
                   </label>
-                  <textarea    
+                  <textarea
                     placeholder="bio"
-                    className="input input-bordered h-20 resize-none"
+                    className="input input-bordered h-20 resize-none text-black"
                     {...register("bio")}
                   />
                 </div>
