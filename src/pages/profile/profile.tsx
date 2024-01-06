@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FeedCard from "../../components/Home/feedCard";
 import { useUserPostQuery } from "../../redux/features/post/postApiSlice";
 import {
@@ -15,14 +15,17 @@ import {
 } from "../../redux/features/auth/userApi";
 import { useState } from "react";
 import EditProfile from "../../components/modal/editePorfile";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Friends from "../../components/Home/friends";
 import SuggestedFriends from "../../components/Home/suggestedFriends";
 import { IPost } from "@/interfaces/post/postInterfaces";
 import Loader from "@/components/loader";
+import { setSelectUser } from "@/redux/features/auth/authSlice";
 
 const Profile = () => {
   const { userId } = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [editProfileModal, setEditeProfileModal] = useState(null);
   const { data, isLoading } = useUserPostQuery(userId);
   const { data: profileUser } = useProfileUserQuery(userId);
@@ -40,6 +43,10 @@ const Profile = () => {
   };
   const handleUnFollowing = async (id: string) => {
     await unFollowingUser(id);
+  };
+  const handleSelectUser = (receiverId: string) => {
+    dispatch(setSelectUser(receiverId));
+    navigate("/chat");
   };
   return (
     <div className="min-h-screen space-y-6 sm:space-y-0">
@@ -73,23 +80,35 @@ const Profile = () => {
           <div className="flex sm:absolute sm:right-0 items-center ">
             <div className="space-x-4">
               {userId !== loginUser?.userId && (
-                <>
-                  {profileUser?.data?.followers?.includes(loginUser?.userId) ? (
+                <div className="flex items-center space-x-4">
+                  <div>
                     <button
-                      onClick={() => handleUnFollowing(userId as string)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
+                      onClick={() => handleSelectUser(profileUser?.data?._id)}
+                      className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-sm"
                     >
-                      unFollow
+                      Chat
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => handleFollowing(userId as string)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
-                    >
-                      Follow
-                    </button>
-                  )}
-                </>
+                  </div>
+                  <div>
+                    {profileUser?.data?.followers?.includes(
+                      loginUser?.userId
+                    ) ? (
+                      <button
+                        onClick={() => handleUnFollowing(userId as string)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
+                      >
+                        unFollow
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleFollowing(userId as string)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm"
+                      >
+                        Follow
+                      </button>
+                    )}
+                  </div>
+                </div>
               )}
 
               {userId === loginUser?.userId && (

@@ -5,3 +5,9 @@
 .main-style {
   background-color: #eceef4;
 }
+
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}

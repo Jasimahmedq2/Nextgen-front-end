@@ -29,6 +29,18 @@ export const userApi = api.injectEndpoints({
       },
       providesTags: ["posts"],
     }),
+    getChatUser: builder.query({
+      query() {
+        return {
+          url: "/users/get-chat-users",
+          credentials: "include",
+          headers: {
+            authorization: `${localStorage.getItem("token")}`,
+          },
+        };
+      },
+      providesTags: ["message"],
+    }),
     profileUser: builder.query({
       query(userId) {
         return {
@@ -117,4 +129,5 @@ export const {
   useUpdateUserMutation,
   useSuggestedFriendsQuery,
   useGetAllUserQuery,
+  useGetChatUserQuery,
 } = userApi;

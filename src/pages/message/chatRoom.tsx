@@ -28,11 +28,7 @@ const ChatRoom: React.FC<{ senderId: string | null; receiverId: string }> = ({
   if (!receiver) return <div>Receiver not found</div>;
 
   return (
-    <div
-      className={`${
-        isDark ? "text-white" : ""
-      } container w-full  sm:sticky top-0 left-0 right-0 h-screen px-4`}
-    >
+    <div className={`${isDark ? "text-white" : ""} w-11/12 px-4`}>
       <div
         className="sm:flex border-b-4 border-gray-300 sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg"
         onClick={() => navigate(`/profile/${receiver?._id}`)}
@@ -52,10 +48,10 @@ const ChatRoom: React.FC<{ senderId: string | null; receiverId: string }> = ({
           {receiver?.name?.firstName + " " + receiver?.name?.lastName}
         </h4>
       </div>
-      <div className="h-[70%] overflow-y-auto">
+      <div>
         <MessageList senderId={senderId} receiverId={receiverId} />
       </div>
-      <div className="sm:fixed right-20  sm:bottom-5 sm:w-[70%]">
+      <div className="">
         <SendMessageForm senderId={senderId} receiverId={receiverId} />
       </div>
     </div>
