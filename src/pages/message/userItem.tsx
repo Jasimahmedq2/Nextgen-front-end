@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // src/components/UserItem.tsx
+import { useAppSelector } from "@/redux/hooks";
 import React from "react";
 
 interface UserItemProps {
@@ -12,8 +13,14 @@ interface UserItemProps {
 }
 
 const UserItem: React.FC<UserItemProps> = ({ user, onStartChat }) => {
+  const { selectUser } = useAppSelector((state) => state.user);
   return (
-    <li className="hover:cursor-pointer" onClick={() => onStartChat(user?._id)}>
+    <div
+      className={`hover:cursor-pointer  ${
+        user?._id === selectUser ? "border border-gray-400 rounded shadow-lg" : ""
+      } `}
+      onClick={() => onStartChat(user?._id)}
+    >
       <div className="sm:flex border sm:border-none sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg">
         <label className="btn btn-circle avatar">
           <div className="w-10  rounded-full">
@@ -30,7 +37,7 @@ const UserItem: React.FC<UserItemProps> = ({ user, onStartChat }) => {
           {user?.name?.firstName + " " + user?.name?.lastName}
         </h4>
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -45,45 +45,51 @@ const SendMessageForm: React.FC<{
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="mt-4  h-full ">
-      <div className={`flex items-center  ${isDark ? " text-black" : ""} `}>
-        {/* emojis */}
-        <div className="flex justify-end items-center mr-4">
-          <details className="dropdown dropdown-top">
-            <summary
-              onClick={() => setShowPicker(!showPicker)}
-              className="m-1 btn"
-            >
-              <span className="hover:cursor-pointer flex justify-center items-center sm:text-2xl text-orange-400 hover:text-slate-300">
-                <BsEmojiSmile />
-              </span>
-            </summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] rounded-box">
-              <li>
-                {showPicker && (
-                  <Picker data={data} onEmojiSelect={handleSelectEmoji} />
-                )}
-              </li>
-            </ul>
-          </details>
-        </div>
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="w-full sticky bottom-0 py-2 px-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-blue-500"
-          placeholder="Message..."
-        />
+    <div
+      className={` fixed bottom-0 w-full ${
+        isDark ? "bg-[#253C42]" : "bg-white"
+      } p-6 shadow-lg`}
+    >
+      <form onSubmit={handleSubmit} className="">
+        <div className={`flex items-center ${isDark ? " text-black" : ""} `}>
+          {/* emojis */}
+          <div className="flex justify-end items-center mr-4">
+            <details className="dropdown dropdown-top">
+              <summary
+                onClick={() => setShowPicker(!showPicker)}
+                className="m-1 btn"
+              >
+                <span className="hover:cursor-pointer flex justify-center items-center sm:text-2xl text-orange-400 hover:text-slate-300">
+                  <BsEmojiSmile />
+                </span>
+              </summary>
+              <ul className="p-2 shadow menu dropdown-content z-[1] rounded-box">
+                <li>
+                  {showPicker && (
+                    <Picker data={data} onEmojiSelect={handleSelectEmoji} />
+                  )}
+                </li>
+              </ul>
+            </details>
+          </div>
+          <input
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="py-4 w-1/2 px-3 rounded-l-lg border-2 border-r-0 border-gray-300 focus:outline-none focus:border-blue-500"
+            placeholder="Message..."
+          />
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-r-lg focus:outline-none"
-        >
-          Send
-        </button>
-      </div>
-    </form>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="bg-blue-500 hover:bg-blue-600 text-white py-4 px-4 rounded-r-lg focus:outline-none"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

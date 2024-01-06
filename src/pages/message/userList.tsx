@@ -46,7 +46,7 @@ const UserList: React.FC<UserListProps> = ({ users, onStartChat }) => {
     <div
       className={`${
         isDark ? "bg-[#253C42] text-white" : "bg-base-100"
-      }  py-2 sm:w-80 h-screen sticky top-0 bottom-0 left-0 overflow-auto`}
+      }  py-2 sm:w-60 sm:fixed  h-screen overflow-auto`}
     >
       <div
         className={`flex items-center space-x-2 ${
@@ -65,11 +65,11 @@ const UserList: React.FC<UserListProps> = ({ users, onStartChat }) => {
           onChange={handleSearch}
         />
       </div>
-      <ul className="space-y-4 grid sm:grid-cols-1 gap-2">
+      <div className="space-y-4 mt-4 grid sm:grid-cols-1 gap-2">
         {searchResults?.map((user: any) => (
           <UserItem key={user._id} user={user} onStartChat={onStartChat} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -56,7 +56,7 @@ const SearchModal = ({
         <div
           className={`modal-box ${
             isDark ? "bg-[#15292B] text-white" : "bg-[#eceef4]"
-          } w-11/12 sm:w-1/2 max-w-5xl`}
+          } w-11/12`}
         >
           <label
             htmlFor="search-modal"
@@ -66,7 +66,7 @@ const SearchModal = ({
           </label>
 
           <div
-            className={`card flex-shrink-0 w-full mx-auto max-w-sm shadow-2xl ${
+            className={`card flex w-full mx-auto max-w-sm shadow-2xl ${
               isDark ? "bg-[#253C42]" : "bg-base-100"
             } `}
           >
