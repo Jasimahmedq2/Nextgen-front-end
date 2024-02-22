@@ -53,7 +53,7 @@ const FeedCard: React.FC<IFeed> = ({ post }) => {
       <div className="pb-6">
         <div
           className={`${
-            isDark ? "bg-[#253C42] text-white" : "bg-white "
+            isDark ? "bg-[#253C42] text-white" : "bg-[#ffffff] "
           } card w-full shadow-xl`}
         >
           <div className="">

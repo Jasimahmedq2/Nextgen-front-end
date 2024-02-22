@@ -10,6 +10,7 @@ import { ILoginUser } from "@/interfaces/user/userInteface";
 import { AiOutlineMessage } from "react-icons/ai";
 import title1 from "../../assets/images/title1.jpeg";
 import title3 from "../../assets/images/title3.jpeg";
+import message from "../../assets/images/chat-bubble.png";
 
 const Navbar = () => {
   const [openSearchModal, setOpenSearchModal] = useState<ILoginUser | null>(
@@ -47,12 +48,12 @@ const Navbar = () => {
           </Link>
           <label
             htmlFor="search-modal"
-            className=" hover:cursor-pointer"
+            className=" hover:cursor-pointer sm:w-32"
             onClick={() => setOpenSearchModal(loginUser)}
           >
             <div
-              className={`flex items-center space-x-2  ${
-                isDark ? "bg-black text-white" : "bg-base-200"
+              className={`flex justify-around items-center space-x-2  ${
+                isDark ? "bg-[#15292b] text-white" : "bg-base-200"
               } p-2 shadow-sm rounded-lg`}
             >
               <span>
@@ -60,7 +61,7 @@ const Navbar = () => {
               </span>
               <p
                 className={`${
-                  isDark ? "text-white bg-black" : "text-black"
+                  isDark ? "text-white bg-[#15292b]" : "text-black"
                 } focus:outline-0 bg-base-200`}
               >
                 search
@@ -102,11 +103,12 @@ const Navbar = () => {
             <div className="form-control w-auto sm:w-52">
               <label className=" label">
                 <div className="hover:cursor-pointer" onClick={chatNavigate}>
-                  <AiOutlineMessage
+                  {/* <AiOutlineMessage
                     className={`${
                       isDark ? "text-white" : ""
                     } text-xl sm:text-4xl`}
-                  />
+                  /> */}
+                  <img className="w-8 h-8" src={message} alt="message" />
                 </div>
               </label>
             </div>

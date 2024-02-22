@@ -11,17 +11,11 @@ const MessageList: React.FC<{
   senderId: string | null;
   receiverId: string;
 }> = ({ senderId, receiverId }) => {
-  const chatContainerRef = useRef(null);
-  const { data: messages, isLoading } = useGetMessagesQuery(
-    {
-      senderId,
-      receiverId,
-    },
-    {
-      refetchOnMountOrArgChange: true,
-      pollingInterval: 2000,
-    }
-  );
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const { data: messages, isLoading } = useGetMessagesQuery({
+    senderId,
+    receiverId,
+  });
 
   console.log({ messageData: messages?.data });
 

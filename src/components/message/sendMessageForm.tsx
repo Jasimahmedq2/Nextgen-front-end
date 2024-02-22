@@ -10,11 +10,13 @@ import { useAppSelector } from "@/redux/hooks";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { BsEmojiSmile } from "react-icons/bs";
+import { useSocket } from "../../socketio/context";
 
 const SendMessageForm: React.FC<{
   senderId: string | null;
   receiverId: string;
 }> = ({ senderId, receiverId }) => {
+  const socket = useSocket();
   const [content, setContent] = useState("");
   const { isDark } = useAppSelector((state) => state.user);
 
@@ -44,6 +46,17 @@ const SendMessageForm: React.FC<{
       console.error("Error sending message:", err);
     }
   };
+
+  const handleSendMessage = () => {
+    console.log({ hello: "message" });
+    // Emit a new message to the server
+    socket.emit("chat message", {
+      sender: senderId,
+      receiver: receiverId,
+      content: text,
+    });
+  };
+
   return (
     <div
       className={` fixed bottom-0 w-full ${
@@ -81,6 +94,7 @@ const SendMessageForm: React.FC<{
           />
 
           <button
+            onClick={handleSendMessage}
             type="submit"
             disabled={isLoading}
             className="bg-blue-500 hover:bg-blue-600 text-white py-4 px-4 rounded-r-lg focus:outline-none"

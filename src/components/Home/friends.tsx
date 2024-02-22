@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import { useGetFriendsQuery } from "../../redux/features/auth/userApi";
 import { useAppSelector } from "@/redux/hooks";
 import Loader from "../loader";
+import UserComponent from "./userComponent";
+import { IUser } from "@/interfaces/user/userInteface";
 
 const Friends = () => {
   const { data, isLoading, isSuccess } = useGetFriendsQuery(null);
-  console.log({ friendss: data?.data?.followers });
 
   const { isDark } = useAppSelector((state) => state.user);
 
@@ -26,31 +27,10 @@ const Friends = () => {
         isDark ? "bg-[#253C42] text-white" : "bg-white"
       } rounded-lg shadow-md p-2 font-bold space-y-4 sm:max-h-screen overflow-y-auto`}
     >
-      <h2 className="text-xl sm:text-2xl ">Friends</h2>
+      <h2 className="text-xl xl:text-2xl pb-2 sm:pb-3 border-b-4 ">Friends</h2>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 ">
         {data &&
-          data?.data?.map((suggest: any) => {
-            return (
-              <Link to={`/profile/${suggest?._id}`}>
-                <div className="sm:flex border sm:border-none sm:items-center sm:space-x-4 py-2 px-1 sm:px-4 rounded-lg">
-                  <label className="btn btn-circle avatar">
-                    <div className="w-10  rounded-full">
-                      <img
-                        src={
-                          suggest?.profilePic ||
-                          "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                        }
-                        alt="suggested img"
-                      />
-                    </div>
-                  </label>
-                  <h4 className="text-sm sm:text-lg font-bold">
-                    {suggest?.name?.firstName + " " + suggest?.name?.lastName}
-                  </h4>
-                </div>
-              </Link>
-            );
-          })}
+          data?.data?.map((suggest: IUser) => <UserComponent user={suggest} />)}
       </div>
     </div>
   );

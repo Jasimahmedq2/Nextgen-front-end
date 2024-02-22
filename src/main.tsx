@@ -10,12 +10,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./redux/store.ts";
 
 import router from "./router/index.tsx";
+import { SocketProvider } from "./socketio/socketInstance.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
+        <SocketProvider>
+          <RouterProvider router={router} />
+        </SocketProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

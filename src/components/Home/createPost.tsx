@@ -189,6 +189,7 @@ const CreatePost = () => {
                 <span className="text-4xl hover:cursor-pointer">
                   <HiOutlinePhotograph className="text-blue-400" />
                 </span>
+                <p className="text-gray-300 text-md font-semibold">Image</p>
               </label>
             </div>
             <div>
